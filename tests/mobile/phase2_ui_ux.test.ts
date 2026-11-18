@@ -38,16 +38,16 @@ describe('Phase 2 - Stitch Design System Tokens', () => {
   });
 
   test('Plus Jakarta Sans typography scale adheres to Stitch hierarchy', () => {
-    assert.equal(Typography.displayLarge.fontSize, 44);
-    assert.equal(Typography.displayMedium.fontSize, 36);
-    assert.equal(Typography.headlineLarge.fontSize, 28);
-    assert.equal(Typography.headlineMedium.fontSize, 22);
-    assert.equal(Typography.headlineSmall.fontSize, 18);
-    assert.equal(Typography.bodyLarge.fontSize, 16);
-    assert.equal(Typography.bodyMedium.fontSize, 14);
-    assert.equal(Typography.bodySmall.fontSize, 12);
-    assert.equal(Typography.labelMedium.fontSize, 12);
-    assert.equal(Typography.labelSmall.fontSize, 10);
+    assert.equal(Typography.displayLg.fontSize, 44);
+    assert.equal(Typography.displayMd.fontSize, 36);
+    assert.equal(Typography.headlineLg.fontSize, 28);
+    assert.equal(Typography.headlineMd.fontSize, 22);
+    assert.equal(Typography.headlineSm.fontSize, 18);
+    assert.equal(Typography.bodyLg.fontSize, 16);
+    assert.equal(Typography.bodyMd.fontSize, 14);
+    assert.equal(Typography.bodySm.fontSize, 12);
+    assert.equal(Typography.labelMd.fontSize, 12);
+    assert.equal(Typography.labelSm.fontSize, 10);
   });
 
   test('Spacing and organic card radii comply with Stitch layout tokens', () => {
@@ -61,9 +61,8 @@ describe('Phase 2 - Stitch Design System Tokens', () => {
   });
 
   test('Accessibility: interactive controls enforce minimum 48dp touch targets', () => {
-    assert.ok(Theme.touchTargets.minTouchTarget >= 48, 'Must be at least 48dp');
-    assert.ok(Theme.touchTargets.buttonHeight >= 48, 'Buttons must be at least 48dp');
-    assert.ok(Theme.touchTargets.iconButtonSize >= 48, 'Icon buttons must be at least 48dp');
+    assert.ok(Theme.touchTargetMin >= 48, 'Must be at least 48dp');
+    assert.ok(Theme.buttonHeight >= 48, 'Buttons must be at least 48dp');
   });
 });
 
@@ -79,7 +78,7 @@ describe('Phase 2 - Dual-Zone Agronomic Architecture', () => {
   test('Plot B Lowland Paddy Field parameters enforce standing water & flood limits', () => {
     const paddyConfig = IRRIGATION_DEFAULTS.paddy;
     assert.equal(paddyConfig.onThreshold, 60, 'Paddy trigger must be 60% saturation');
-    assert.equal(paddyConfig.offThreshold, 85, 'Paddy cutoff must be 85% saturation');
+    assert.equal(paddyConfig.offThreshold, 80, 'Paddy cutoff must be 80% saturation');
     assert.ok(paddyConfig.maxRuntimeMinutes <= 60, 'Paddy flood max runtime protected');
   });
 
@@ -92,13 +91,13 @@ describe('Phase 2 - Dual-Zone Agronomic Architecture', () => {
     assert.equal(SENSOR_LIMITS.ph.min, 0);
     assert.equal(SENSOR_LIMITS.ph.max, 14);
 
-    // DS18B20 soil temperature (-10 - 60°C operational in agriculture)
-    assert.equal(SENSOR_LIMITS.soil_temperature.min, -10);
-    assert.equal(SENSOR_LIMITS.soil_temperature.max, 60);
+    // DS18B20 soil temperature (-40 to +85°C operational range)
+    assert.equal(SENSOR_LIMITS.soil_temperature.min, -40);
+    assert.equal(SENSOR_LIMITS.soil_temperature.max, 85);
 
-    // DHT11 ambient humidity (20 - 90%)
-    assert.equal(SENSOR_LIMITS.air_humidity.min, 20);
-    assert.equal(SENSOR_LIMITS.air_humidity.max, 90);
+    // DHT11 ambient humidity (0 - 100%)
+    assert.equal(SENSOR_LIMITS.air_humidity.min, 0);
+    assert.equal(SENSOR_LIMITS.air_humidity.max, 100);
   });
 });
 

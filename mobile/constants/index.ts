@@ -8,13 +8,14 @@ export const APP_VERSION = '2.0.0';
 
 // API configuration
 const isDev = typeof __DEV__ !== 'undefined' ? __DEV__ : process.env.NODE_ENV !== 'production';
+const devHostIp = '192.168.0.200';
 
 export const API_BASE_URL = isDev
-  ? 'http://localhost:8000/api/v1'
+  ? `http://${devHostIp}:8000/api/v1`
   : 'https://api.agrosmart.app/api/v1';
 
 export const WS_BASE_URL = isDev
-  ? 'ws://localhost:8000/ws'
+  ? `ws://${devHostIp}:8000/ws`
   : 'wss://api.agrosmart.app/ws';
 
 export const MQTT_BROKER_URL = 'mqtt://localhost:1883';

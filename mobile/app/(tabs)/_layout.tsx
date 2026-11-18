@@ -46,7 +46,7 @@ export default function TabsLayout() {
               <MaterialCommunityIcons
                 name={focused ? 'view-dashboard' : 'view-dashboard-outline'}
                 size={22}
-                color={focused ? Colors.stitch.primaryContainer : color}
+                color={focused ? Colors.stitch.primaryContainer : (color as string)}
               />
               {focused && <View style={styles.activeDot} />}
             </View>
@@ -62,7 +62,7 @@ export default function TabsLayout() {
               <MaterialCommunityIcons
                 name={focused ? 'sprout' : 'sprout-outline'}
                 size={22}
-                color={focused ? Colors.stitch.primaryContainer : color}
+                color={focused ? Colors.stitch.primaryContainer : (color as string)}
               />
               {focused && <View style={styles.activeDot} />}
             </View>
@@ -90,7 +90,7 @@ export default function TabsLayout() {
                     ? Colors.stitch.warningAmber
                     : focused
                     ? Colors.stitch.primaryContainer
-                    : color
+                    : (color as string)
                 }
               />
               {focused && <View style={styles.activeDot} />}
@@ -107,7 +107,7 @@ export default function TabsLayout() {
               <MaterialCommunityIcons
                 name={focused ? 'chart-box' : 'chart-box-outline'}
                 size={22}
-                color={focused ? Colors.stitch.primaryContainer : color}
+                color={focused ? Colors.stitch.primaryContainer : (color as string)}
               />
               {focused && <View style={styles.activeDot} />}
             </View>
@@ -123,7 +123,7 @@ export default function TabsLayout() {
               <MaterialCommunityIcons
                 name={focused ? 'account-cog' : 'account-cog-outline'}
                 size={22}
-                color={focused ? Colors.stitch.primaryContainer : color}
+                color={focused ? Colors.stitch.primaryContainer : (color as string)}
               />
               {focused && <View style={styles.activeDot} />}
             </View>
