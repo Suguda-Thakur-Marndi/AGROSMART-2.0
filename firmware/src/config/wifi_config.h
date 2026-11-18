@@ -13,14 +13,14 @@
 #define DEFAULT_WIFI_PASS            "agro_smart_2026"
 
 // FastAPI Backend Endpoint Configuration
-#define BACKEND_HOST                 "192.168.1.100" // Configure to local LAN IP or cloud domain
+#define BACKEND_HOST                 "192.168.0.200" // Configure to local LAN IP or cloud domain
 #define BACKEND_PORT                 8000
 #define BACKEND_TELEMETRY_PATH       "/api/v1/telemetry/ingest"
 #define BACKEND_COMMAND_POLL_PATH    "/api/v1/devices/agrosmart-mega-01/commands/poll"
 
-// Device Identity & Security Tokens
+// Device Identity & Security Tokens (Matches backend DEVICE_API_KEY)
 #define DEVICE_ID                    "agrosmart-mega-01"
-#define DEVICE_AUTH_TOKEN            "agt_live_mega2560_sec_key_2026"
+#define DEVICE_AUTH_TOKEN            "agrosmart-device-key-2024"
 
 // Timing & Intervals
 #define TELEMETRY_SEND_INTERVAL_MS   5000   // Send telemetry every 5 seconds

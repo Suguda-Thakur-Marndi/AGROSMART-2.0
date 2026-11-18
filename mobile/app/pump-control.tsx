@@ -45,36 +45,49 @@ export default function PumpControlScreen() {
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'Start Pump',
-          onPress: () => {
-            if (setPumpStatus) {
-              setPumpStatus({
-                state: 'ON',
-                mode: 'MANUAL',
-                activeZone: selectedManualZone,
-                valveVegetable: selectedManualZone === 'vegetable' ? 'OPEN' : 'CLOSED',
-                valvePaddy: selectedManualZone === 'paddy' ? 'OPEN' : 'CLOSED',
-                currentRunDurationSeconds: 1,
-                dailyRuntimeSeconds: dailyDurationSec + 1,
-                lastStartTime: new Date().toISOString(),
-                lastStopTime: null,
-                dataSource: isDemoMode ? 'demo' : 'live',
-                reportedByDevice: true,
-                voltageConfig: '12V DC (1A)',
-                sharedPipeMode: false,
-              });
+          onPress: async () => {
+            try {
+              const { deviceCommunicationService } = await import('../services/connection/DeviceCommunicationService');
+              const ack = await deviceCommunicationService.startIrrigation(
+                selectedManualZone as 'vegetable' | 'paddy',
+                manualDurationMinutes * 60
+              );
+              if (ack && ack.success) {
+                if (setPumpStatus) {
+                  setPumpStatus({
+                    state: 'ON',
+                    mode: 'MANUAL',
+                    activeZone: selectedManualZone,
+                    valveVegetable: selectedManualZone === 'vegetable' ? 'OPEN' : 'CLOSED',
+                    valvePaddy: selectedManualZone === 'paddy' ? 'OPEN' : 'CLOSED',
+                    currentRunDurationSeconds: 1,
+                    dailyRuntimeSeconds: dailyDurationSec + 1,
+                    lastStartTime: new Date().toISOString(),
+                    lastStopTime: null,
+                    dataSource: isDemoMode ? 'demo' : 'live',
+                    reportedByDevice: true,
+                    voltageConfig: '12V DC (1A)',
+                    sharedPipeMode: false,
+                  });
 
-              addEvent({
-                id: `evt-${Date.now()}`,
-                zoneId: selectedManualZone,
-                startTime: new Date().toISOString(),
-                endTime: null,
-                durationSeconds: manualDurationMinutes * 60,
-                trigger: 'MANUAL',
-                startMoisture: 32.5,
-                endMoisture: null,
-                estimatedLitres: manualDurationMinutes * 12,
-                isEstimated: true,
-              });
+                  addEvent({
+                    id: ack.commandId || `evt-${Date.now()}`,
+                    zoneId: selectedManualZone,
+                    startTime: new Date().toISOString(),
+                    endTime: null,
+                    durationSeconds: manualDurationMinutes * 60,
+                    trigger: 'MANUAL',
+                    startMoisture: 32.5,
+                    endMoisture: null,
+                    estimatedLitres: manualDurationMinutes * 12,
+                    isEstimated: true,
+                  });
+                }
+              } else {
+                Alert.alert('Command Failed', ack?.message || 'Controller denied manual pump command.');
+              }
+            } catch (err: any) {
+              Alert.alert('Dispatch Error', err.message || 'Failed to dispatch command.');
             }
           },
         },
@@ -82,7 +95,12 @@ export default function PumpControlScreen() {
     );
   };
 
-  const handleStopPump = () => {
+  const handleStopPump = async () => {
+    try {
+      const { deviceCommunicationService } = await import('../services/connection/DeviceCommunicationService');
+      await deviceCommunicationService.stopIrrigation(selectedManualZone as 'vegetable' | 'paddy');
+    } catch {}
+
     if (setPumpStatus) {
       setPumpStatus({
         state: 'OFF',
@@ -109,7 +127,12 @@ export default function PumpControlScreen() {
       [
         {
           text: 'OK',
-          onPress: () => {
+          onPress: async () => {
+            try {
+              const { deviceCommunicationService } = await import('../services/connection/DeviceCommunicationService');
+              await deviceCommunicationService.emergencyStop();
+            } catch {}
+
             if (setPumpStatus) {
               setPumpStatus({
                 state: 'OFF',

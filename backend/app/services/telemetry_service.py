@@ -1,13 +1,16 @@
 from datetime import datetime, timezone
+import logging
 
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 
 from app.core.config import settings
 from app.models.device import Device
 from app.models.notification import Notification
 from app.models.sensor_reading import SensorReading
 from app.schemas.sensor import TelemetryPacket
-from sqlalchemy import select
+
+logger = logging.getLogger("agrosmart.telemetry")
 
 
 async def ingest_telemetry(db: AsyncSession, device_id: str, packet: TelemetryPacket) -> SensorReading:
@@ -66,41 +69,69 @@ async def ingest_telemetry(db: AsyncSession, device_id: str, packet: TelemetryPa
     )
     db.add(reading)
 
-    # Threshold notifications
+    # Threshold and event notifications
     notifications = []
 
-    if packet.veg_moisture is not None:
-        if packet.veg_moisture < settings.VEG_MOISTURE_ON:
+    # Vegetable zone moisture alerts
+    if veg_moist is not None and veg_moist >= 0:
+        if veg_moist < settings.VEG_MOISTURE_ON:
             notifications.append(Notification(
-                title="Low Veggie Moisture",
-                body=f"Veg zone moisture is {packet.veg_moisture:.1f}% — below threshold {settings.VEG_MOISTURE_ON}%",
+                title="Low Vegetable Moisture",
+                body=f"Vegetable zone moisture is {veg_moist:.1f}% — below threshold {settings.VEG_MOISTURE_ON}%",
                 category="moisture_alert",
             ))
-        elif packet.veg_moisture > settings.VEG_MOISTURE_OFF:
+        elif veg_moist > settings.VEG_MOISTURE_OFF:
             notifications.append(Notification(
-                title="Veg Moisture Sufficient",
-                body=f"Veg zone moisture is {packet.veg_moisture:.1f}% — irrigation can stop",
+                title="Vegetable Moisture Sufficient",
+                body=f"Vegetable zone moisture is {veg_moist:.1f}% — target reached",
                 category="moisture_ok",
             ))
 
-    if packet.paddy_moisture is not None:
-        if packet.paddy_moisture < settings.PADDY_MOISTURE_ON:
+    # Paddy zone moisture alerts (if physical probe installed, >= 0)
+    if paddy_moist is not None and paddy_moist >= 0:
+        if paddy_moist < settings.PADDY_MOISTURE_ON:
             notifications.append(Notification(
                 title="Low Paddy Moisture",
-                body=f"Paddy zone moisture is {packet.paddy_moisture:.1f}% — below threshold {settings.PADDY_MOISTURE_ON}%",
+                body=f"Paddy zone moisture is {paddy_moist:.1f}% — below threshold {settings.PADDY_MOISTURE_ON}%",
                 category="moisture_alert",
             ))
-        elif packet.paddy_moisture > settings.PADDY_MOISTURE_OFF:
+        elif paddy_moist > settings.PADDY_MOISTURE_OFF:
             notifications.append(Notification(
                 title="Paddy Moisture Sufficient",
-                body=f"Paddy zone moisture is {packet.paddy_moisture:.1f}% — irrigation can stop",
+                body=f"Paddy zone moisture is {paddy_moist:.1f}% — target reached",
                 category="moisture_ok",
             ))
 
-    if packet.error_bitmask and packet.error_bitmask != 0:
+    # pH anomaly warnings (optimal 5.5 - 7.5)
+    if ph_val is not None and ph_val > 0:
+        if ph_val < 5.5:
+            notifications.append(Notification(
+                title="Acidic Soil Alert",
+                body=f"Soil pH dropped to {ph_val:.2f} — below healthy threshold 5.50 pH",
+                category="ph_alert",
+            ))
+        elif ph_val > 7.5:
+            notifications.append(Notification(
+                title="Alkaline Soil Alert",
+                body=f"Soil pH elevated to {ph_val:.2f} — above healthy threshold 7.50 pH",
+                category="ph_alert",
+            ))
+
+    # Hardware fault bitmask alerts
+    if err_bits != 0:
+        fault_msgs = []
+        if err_bits & 0x01: fault_msgs.append("Veg Moisture Sensor Fault")
+        if err_bits & 0x02: fault_msgs.append("Paddy Moisture Sensor Fault")
+        if err_bits & 0x04: fault_msgs.append("pH Electrode Signal Fault")
+        if err_bits & 0x08: fault_msgs.append("DS18B20 Temp Probe Fault")
+        if err_bits & 0x10: fault_msgs.append("DHT11 Sensor Timeout")
+        if err_bits & 0x40: fault_msgs.append("Pump Max Runtime Timeout Exceeded")
+        if err_bits & 0x80: fault_msgs.append("Emergency Stop Active")
+        
+        detail = ", ".join(fault_msgs) if fault_msgs else f"Bitmask 0x{err_bits:02X}"
         notifications.append(Notification(
-            title="Device Error",
-            body=f"Device {device_id} reported error bitmask: {packet.error_bitmask}",
+            title="Hardware Safety Alert",
+            body=f"Device {device_id} reported: {detail}",
             category="error",
         ))
 
@@ -109,4 +140,31 @@ async def ingest_telemetry(db: AsyncSession, device_id: str, packet: TelemetryPa
 
     await db.commit()
     await db.refresh(reading)
+
+    # Broadcast real-time telemetry over WebSockets to connected mobile clients
+    try:
+        from app.api.v1.websocket import manager
+        await manager.broadcast(device_id, {
+            "type": "telemetry",
+            "device_id": device_id,
+            "data": {
+                "id": reading.id,
+                "timestamp": reading.timestamp.isoformat(),
+                "veg_moisture": reading.veg_moisture,
+                "paddy_moisture": reading.paddy_moisture,
+                "ph": reading.ph,
+                "soil_temp": reading.soil_temp,
+                "air_temp": reading.air_temp,
+                "air_humidity": reading.air_humidity,
+                "pump_active": reading.pump_active,
+                "veg_valve": reading.veg_valve,
+                "paddy_valve": reading.paddy_valve,
+                "irrigation_mode": reading.irrigation_mode,
+                "active_zone": reading.active_zone,
+                "error_bitmask": reading.error_bitmask,
+            }
+        })
+    except Exception as e:
+        logger.warning(f"WebSocket broadcast exception for {device_id}: {e}")
+
     return reading

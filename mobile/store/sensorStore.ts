@@ -54,9 +54,20 @@ export const useSensorStore = create<SensorState>((set, get) => ({
 
   fetchLatest: async (deviceId, token) => {
     try {
-      const reading = await fetchLatestReading(deviceId, token);
+      const reading = await fetchLatestReading(deviceId, token) as any;
       if (reading) {
         set({ error: null, isDemo: false, lastUpdated: new Date().toISOString() });
+        const { deviceCommunicationService } = await import('../services/connection/DeviceCommunicationService');
+        (deviceCommunicationService as any).handleIncomingTelemetry({
+          soilMoistureVeg: reading.veg_moisture,
+          soilMoisturePaddy: reading.paddy_moisture,
+          ph: reading.ph,
+          temperatureSoil: reading.soil_temp,
+          temperatureCanopy: reading.air_temp,
+          humidity: reading.air_humidity,
+          pumpState: reading.pump_active ? 'ON' : 'OFF',
+          activeZone: reading.active_zone ? reading.active_zone.toUpperCase() : 'NONE',
+        });
       } else {
         // In LIVE mode: do NOT silently fallback to demo data
         set({ error: 'Hardware offline or no telemetry ingested yet' });
@@ -72,9 +83,23 @@ export const useSensorStore = create<SensorState>((set, get) => ({
     }
     _ws = new AgroSmartWebSocket(
       deviceId,
-      (data) => {
+      (data: any) => {
         set({ lastUpdated: new Date().toISOString(), isDemo: false, error: null });
-        void data;
+        if (data && data.data) {
+          const d = data.data;
+          import('../services/connection/DeviceCommunicationService').then(({ deviceCommunicationService }) => {
+            (deviceCommunicationService as any).handleIncomingTelemetry({
+              soilMoistureVeg: d.veg_moisture,
+              soilMoisturePaddy: d.paddy_moisture,
+              ph: d.ph,
+              temperatureSoil: d.soil_temp,
+              temperatureCanopy: d.air_temp,
+              humidity: d.air_humidity,
+              pumpState: d.pump_active ? 'ON' : 'OFF',
+              activeZone: d.active_zone ? d.active_zone.toUpperCase() : 'NONE',
+            });
+          }).catch(() => {});
+        }
       },
       (connected) => {
         if (!connected) {

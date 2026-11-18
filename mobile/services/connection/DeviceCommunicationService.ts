@@ -73,39 +73,175 @@ export class DeviceCommunicationService {
     try {
       const sensorState = useSensorStore.getState();
       const irrigationState = useIrrigationStore.getState();
+      const now = new Date().toISOString();
 
-      if (sensorState.vegetableZone) {
-        const vz = sensorState.vegetableZone;
-        const updatedVz = { ...vz, lastUpdated: new Date().toISOString() };
-        if (vz.soilMoisture && data.soilMoistureVeg !== undefined) {
-          updatedVz.soilMoisture = { ...vz.soilMoisture, value: data.soilMoistureVeg } as any;
-        }
-        if (vz.ph && data.ph !== undefined) {
-          updatedVz.ph = { ...vz.ph, value: data.ph } as any;
-        }
-        if (vz.soilTemperature && data.temperatureSoil !== undefined) {
-          updatedVz.soilTemperature = { ...vz.soilTemperature, value: data.temperatureSoil } as any;
-        }
-        if (vz.airTemperature && data.temperatureCanopy !== undefined) {
-          updatedVz.airTemperature = { ...vz.airTemperature, value: data.temperatureCanopy } as any;
-        }
-        if (vz.airHumidity && data.humidity !== undefined) {
-          updatedVz.airHumidity = { ...vz.airHumidity, value: data.humidity } as any;
-        }
-        sensorState.setVegetableZone(updatedVz);
+      // Normalize vegetable zone telemetry
+      const vz = sensorState.vegetableZone || {
+        zoneId: 'vegetable' as const,
+        zoneName: 'Plot A: Vegetable Field',
+        soilMoisture: null,
+        ph: null,
+        soilTemperature: null,
+        airTemperature: null,
+        airHumidity: null,
+        lastUpdated: now,
+        dataSource: 'live' as const,
+      };
+
+      const updatedVz = { ...vz, lastUpdated: now, dataSource: 'live' as const };
+
+      if (data.soilMoistureVeg !== undefined && data.soilMoistureVeg !== null) {
+        const isOffline = data.soilMoistureVeg < 0;
+        updatedVz.soilMoisture = {
+          id: 'sensor-soil-veg-01',
+          deviceId: 'agrosmart-mega-01',
+          zoneId: 'vegetable',
+          sensorType: 'soil_moisture',
+          value: isOffline ? 0 : data.soilMoistureVeg,
+          unit: '%',
+          status: isOffline ? 'offline' : 'online',
+          dataSource: 'live',
+          timestamp: now,
+          isValid: !isOffline,
+          calibrated: true,
+        };
       }
 
-      if (sensorState.paddyZone && sensorState.paddyZone.soilMoisture && data.soilMoisturePaddy !== undefined) {
-        const pz = sensorState.paddyZone;
-        sensorState.setPaddyZone({
-          ...pz,
-          soilMoisture: {
-            ...pz.soilMoisture,
-            value: data.soilMoisturePaddy,
-          } as any,
-          lastUpdated: new Date().toISOString(),
-        });
+      if (data.ph !== undefined && data.ph !== null) {
+        const isOffline = data.ph < 0;
+        updatedVz.ph = {
+          id: 'sensor-ph-01',
+          deviceId: 'agrosmart-mega-01',
+          zoneId: 'vegetable',
+          sensorType: 'ph',
+          value: isOffline ? 0 : data.ph,
+          unit: 'pH',
+          status: isOffline ? 'offline' : 'online',
+          dataSource: 'live',
+          timestamp: now,
+          isValid: !isOffline,
+          calibrated: true,
+        };
       }
+
+      if (data.temperatureSoil !== undefined && data.temperatureSoil !== null) {
+        const isOffline = data.temperatureSoil < -50;
+        updatedVz.soilTemperature = {
+          id: 'sensor-temp-soil-01',
+          deviceId: 'agrosmart-mega-01',
+          zoneId: 'vegetable',
+          sensorType: 'soil_temperature',
+          value: isOffline ? 0 : data.temperatureSoil,
+          unit: '°C',
+          status: isOffline ? 'offline' : 'online',
+          dataSource: 'live',
+          timestamp: now,
+          isValid: !isOffline,
+        };
+      }
+
+      if (data.temperatureCanopy !== undefined && data.temperatureCanopy !== null) {
+        const isOffline = data.temperatureCanopy < -50;
+        updatedVz.airTemperature = {
+          id: 'sensor-temp-air-01',
+          deviceId: 'agrosmart-mega-01',
+          zoneId: 'vegetable',
+          sensorType: 'air_temperature',
+          value: isOffline ? 0 : data.temperatureCanopy,
+          unit: '°C',
+          status: isOffline ? 'offline' : 'online',
+          dataSource: 'live',
+          timestamp: now,
+          isValid: !isOffline,
+        };
+      }
+
+      if (data.humidity !== undefined && data.humidity !== null) {
+        const isOffline = data.humidity < 0;
+        updatedVz.airHumidity = {
+          id: 'sensor-hum-air-01',
+          deviceId: 'agrosmart-mega-01',
+          zoneId: 'vegetable',
+          sensorType: 'air_humidity',
+          value: isOffline ? 0 : data.humidity,
+          unit: '%',
+          status: isOffline ? 'offline' : 'online',
+          dataSource: 'live',
+          timestamp: now,
+          isValid: !isOffline,
+        };
+      }
+
+      sensorState.setVegetableZone(updatedVz);
+
+      // Normalize paddy zone telemetry (supports single-sensor or dual-sensor setup)
+      const pz = sensorState.paddyZone || {
+        zoneId: 'paddy' as const,
+        zoneName: 'Plot B: Lowland Paddy Field',
+        soilMoisture: null,
+        ph: null,
+        soilTemperature: null,
+        airTemperature: null,
+        airHumidity: null,
+        lastUpdated: now,
+        dataSource: 'live' as const,
+      };
+
+      const updatedPz = { ...pz, lastUpdated: now, dataSource: 'live' as const };
+
+      if (data.soilMoisturePaddy !== undefined && data.soilMoisturePaddy !== null && data.soilMoisturePaddy >= 0) {
+        updatedPz.soilMoisture = {
+          id: 'sensor-soil-paddy-01',
+          deviceId: 'agrosmart-mega-01',
+          zoneId: 'paddy',
+          sensorType: 'soil_moisture',
+          value: data.soilMoisturePaddy,
+          unit: '%',
+          status: 'online',
+          dataSource: 'live',
+          timestamp: now,
+          isValid: true,
+          calibrated: true,
+        };
+      } else {
+        // Physical sensor not connected or single-sensor setup
+        updatedPz.soilMoisture = null;
+      }
+
+      // Shared environment sensors for paddy
+      updatedPz.ph = updatedVz.ph;
+      updatedPz.soilTemperature = updatedVz.soilTemperature;
+      updatedPz.airTemperature = updatedVz.airTemperature;
+      updatedPz.airHumidity = updatedVz.airHumidity;
+
+      sensorState.setPaddyZone(updatedPz);
+      sensorState.updateLastUpdated();
+
+      // Push real-time notification alerts if thresholds exceeded
+      import('../../store/appStore').then(({ useAppStore }) => {
+        const appState = useAppStore.getState();
+        if (data.soilMoistureVeg !== undefined && data.soilMoistureVeg >= 0 && data.soilMoistureVeg < 35) {
+          appState.addNotification({
+            id: `alert_moist_veg_${Date.now()}`,
+            type: 'warning',
+            title: 'Low Soil Moisture (Vegetable)',
+            body: `Plot A moisture is ${data.soilMoistureVeg.toFixed(1)}% (below 35% threshold).`,
+            timestamp: now,
+            read: false,
+            zoneId: 'vegetable',
+          });
+        }
+        if (data.ph !== undefined && data.ph > 0 && (data.ph < 5.5 || data.ph > 7.5)) {
+          appState.addNotification({
+            id: `alert_ph_${Date.now()}`,
+            type: 'warning',
+            title: 'Soil pH Anomaly',
+            body: `Soil pH measured ${data.ph.toFixed(2)} (outside optimal 5.5–7.5 range).`,
+            timestamp: now,
+            read: false,
+          });
+        }
+      }).catch(() => {});
 
       if (data.pumpState && irrigationState.setPumpStatus) {
         irrigationState.setPumpStatus({

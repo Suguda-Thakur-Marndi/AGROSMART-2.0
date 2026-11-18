@@ -11,5 +11,7 @@ build/
 venv/
 .venv/
 *.log
+*.db
+*.sqlite*
 .DS_Store
 Thumbs.db

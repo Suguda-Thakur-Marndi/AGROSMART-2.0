@@ -45,12 +45,17 @@ export default function SmartIrrigationWaterControlScreen() {
   const isPumpRunning = pumpStatus?.state === 'ON';
   const activeZone = pumpStatus?.activeZone;
 
-  const handleEmergencyStop = () => {
+  const handleEmergencyStop = async () => {
+    try {
+      const { deviceCommunicationService } = await import('../../services/connection/DeviceCommunicationService');
+      await deviceCommunicationService.emergencyStop();
+    } catch {}
+
     addCommand({
       commandId: `cmd_stop_${Date.now()}`,
       type: 'EMERGENCY_STOP',
       issuedAt: new Date().toISOString(),
-      status: 'PENDING',
+      status: 'CONFIRMED',
     });
     Alert.alert(
       'EMERGENCY STOP EXECUTED',
@@ -59,34 +64,46 @@ export default function SmartIrrigationWaterControlScreen() {
     );
   };
 
-  const handleRequestVegDrip = () => {
-    addCommand({
-      commandId: `cmd_veg_drip_${Date.now()}`,
-      type: 'PUMP_ON',
-      targetZone: 'vegetable',
-      issuedAt: new Date().toISOString(),
-      status: 'PENDING',
-    });
-    Alert.alert(
-      'Vegetable Drip Initiated',
-      'Requested 5-minute water drip for Plot A. Solenoid Valve 1 lead sequence will engage 1500ms before pump start.',
-      [{ text: 'OK' }]
-    );
+  const handleRequestVegDrip = async () => {
+    try {
+      const { deviceCommunicationService } = await import('../../services/connection/DeviceCommunicationService');
+      const ack = await deviceCommunicationService.startIrrigation('vegetable', 300);
+      addCommand({
+        commandId: ack.commandId || `cmd_veg_drip_${Date.now()}`,
+        type: 'PUMP_ON',
+        targetZone: 'vegetable',
+        issuedAt: new Date().toISOString(),
+        status: ack.success ? 'CONFIRMED' : 'FAILED',
+      });
+      Alert.alert(
+        ack.success ? 'Vegetable Drip Initiated' : 'Command Failed',
+        ack.message || 'Requested 5-minute water drip for Plot A. Solenoid Valve 1 lead sequence will engage 1500ms before pump start.',
+        [{ text: 'OK' }]
+      );
+    } catch (e: any) {
+      Alert.alert('Dispatch Error', e.message || 'Failed to dispatch command to controller.');
+    }
   };
 
-  const handleRequestPaddyFlood = () => {
-    addCommand({
-      commandId: `cmd_paddy_flood_${Date.now()}`,
-      type: 'PUMP_ON',
-      targetZone: 'paddy',
-      issuedAt: new Date().toISOString(),
-      status: 'PENDING',
-    });
-    Alert.alert(
-      'Paddy Flood Initiated',
-      'Requested 30-minute flood inflow for Plot B. Sequential interlock checks active lines before starting.',
-      [{ text: 'OK' }]
-    );
+  const handleRequestPaddyFlood = async () => {
+    try {
+      const { deviceCommunicationService } = await import('../../services/connection/DeviceCommunicationService');
+      const ack = await deviceCommunicationService.startIrrigation('paddy', 1800);
+      addCommand({
+        commandId: ack.commandId || `cmd_paddy_flood_${Date.now()}`,
+        type: 'PUMP_ON',
+        targetZone: 'paddy',
+        issuedAt: new Date().toISOString(),
+        status: ack.success ? 'CONFIRMED' : 'FAILED',
+      });
+      Alert.alert(
+        ack.success ? 'Paddy Flood Initiated' : 'Command Failed',
+        ack.message || 'Requested 30-minute flood inflow for Plot B. Sequential interlock checks active lines before starting.',
+        [{ text: 'OK' }]
+      );
+    } catch (e: any) {
+      Alert.alert('Dispatch Error', e.message || 'Failed to dispatch command to controller.');
+    }
   };
 
   return (

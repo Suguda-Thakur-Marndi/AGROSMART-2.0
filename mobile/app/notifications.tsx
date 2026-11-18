@@ -41,55 +41,68 @@ interface NotificationItem {
 
 const DEFAULT_NOTIFICATIONS: NotificationItem[] = [
   {
-    id: 'notif_1',
-    category: 'alert',
-    severity: 'warning',
-    title: 'Plot A Soil Moisture Approaching 35%',
-    body: 'Capacitive V1.2 reading at 38% VWC. Sequential irrigation queued for next pump window.',
-    timestamp: '10 min ago',
-    zone: 'Plot A (Vegetable)',
+    id: 'notif_init_1',
+    category: 'system',
+    severity: 'success',
+    title: 'Controller Link Active',
+    body: 'AgroSmart Mega 2560 communication pipeline online. Sensor channels initialized.',
+    timestamp: 'Just now',
+    zone: 'System',
     isRead: false,
   },
   {
-    id: 'notif_2',
-    category: 'cycle',
-    severity: 'success',
-    title: 'Plot B Flood Cycle Completed',
-    body: 'Solenoid Valve 2 successfully closed after 30-min run. ~360 L delivered. 4.2 cm standing depth maintained.',
-    timestamp: 'Yesterday, 07:30 AM',
-    zone: 'Plot B (Paddy)',
-    isRead: true,
-  },
-  {
-    id: 'notif_3',
+    id: 'notif_init_2',
     category: 'advisory',
     severity: 'info',
-    title: 'Canopy Evaporation Advisory',
-    body: 'DHT11 reported 29°C canopy temperature with 65% RH. Soil dry-down accelerated by +12%.',
-    timestamp: 'Yesterday, 02:15 PM',
-    zone: 'Microclimate',
-    isRead: true,
-  },
-  {
-    id: 'notif_4',
-    category: 'system',
-    severity: 'success',
-    title: 'A7672S Cellular Link Nominal',
-    body: 'MQTTS keep-alive ACK confirmed. RSSI: -67 dBm (CSQ 24/31). All 4 sensor probe streams verified.',
-    timestamp: '2 days ago',
-    zone: 'Gateway',
+    title: 'Dual-Zone Safety Interlocks Active',
+    body: 'Sequential hydraulic valve lock latched. Shared 12V pump mutual exclusion enforced.',
+    timestamp: 'Just now',
+    zone: 'Hydraulics',
     isRead: true,
   },
 ];
 
 export default function NotificationsScreen() {
   const router = useRouter();
-  const { markAllRead } = useAppStore();
+  const { notifications: storeNotifications, markAllRead } = useAppStore();
 
   const [activeFilter, setActiveFilter] = useState<
     'all' | 'alerts' | 'cycles' | 'advisories'
   >('all');
-  const [items, setItems] = useState<NotificationItem[]>(DEFAULT_NOTIFICATIONS);
+
+  // Map live store notifications if available, otherwise display default initial system state
+  const liveItems: NotificationItem[] = storeNotifications.length > 0
+    ? storeNotifications.map((n) => ({
+        id: n.id,
+        category: n.type === 'error' || n.type === 'warning' ? 'alert' : n.type === 'irrigation' ? 'cycle' : 'advisory',
+        severity: n.type === 'error' || n.type === 'warning' ? 'warning' : 'info',
+        title: n.title,
+        body: n.body,
+        timestamp: n.timestamp ? new Date(n.timestamp).toLocaleTimeString() : 'Recent',
+        zone: n.zoneId === 'vegetable' ? 'Plot A (Vegetable)' : n.zoneId === 'paddy' ? 'Plot B (Paddy)' : 'Telemetry',
+        isRead: n.read,
+      }))
+    : DEFAULT_NOTIFICATIONS;
+
+  const [items, setItems] = useState<NotificationItem[]>(liveItems);
+
+  // Sync with store updates
+  React.useEffect(() => {
+    if (storeNotifications.length > 0) {
+      setItems(
+        storeNotifications.map((n) => ({
+          id: n.id,
+          category: n.type === 'error' || n.type === 'warning' ? 'alert' : n.type === 'irrigation' ? 'cycle' : 'advisory',
+          severity: n.type === 'error' || n.type === 'warning' ? 'warning' : 'info',
+          title: n.title,
+          body: n.body,
+          timestamp: n.timestamp ? new Date(n.timestamp).toLocaleTimeString() : 'Recent',
+          zone: n.zoneId === 'vegetable' ? 'Plot A (Vegetable)' : n.zoneId === 'paddy' ? 'Plot B (Paddy)' : 'Telemetry',
+          isRead: n.read,
+        }))
+      );
+    }
+  }, [storeNotifications]);
 
   const filteredItems = items.filter((item) => {
     if (activeFilter === 'all') return true;

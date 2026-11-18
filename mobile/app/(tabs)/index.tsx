@@ -48,23 +48,33 @@ export default function HomeScreen() {
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'Start',
-          onPress: () => {
-            if (setPumpStatus) {
-              setPumpStatus({
-                state: 'ON',
-                mode: 'MANUAL',
-                activeZone: 'vegetable',
-                valveVegetable: 'OPEN',
-                valvePaddy: 'CLOSED',
-                currentRunDurationSeconds: 1,
-                dailyRuntimeSeconds: (pumpStatus?.dailyRuntimeSeconds ?? 1080) + 1,
-                lastStartTime: new Date().toISOString(),
-                lastStopTime: null,
-                dataSource: isDemoMode ? 'demo' : 'live',
-                reportedByDevice: true,
-                voltageConfig: '12V DC (1A)',
-                sharedPipeMode: false,
-              });
+          onPress: async () => {
+            try {
+              const { deviceCommunicationService } = await import('../../services/connection/DeviceCommunicationService');
+              const ack = await deviceCommunicationService.startIrrigation('vegetable', 180);
+              if (ack && ack.success) {
+                if (setPumpStatus) {
+                  setPumpStatus({
+                    state: 'ON',
+                    mode: 'MANUAL',
+                    activeZone: 'vegetable',
+                    valveVegetable: 'OPEN',
+                    valvePaddy: 'CLOSED',
+                    currentRunDurationSeconds: 1,
+                    dailyRuntimeSeconds: (pumpStatus?.dailyRuntimeSeconds ?? 1080) + 1,
+                    lastStartTime: new Date().toISOString(),
+                    lastStopTime: null,
+                    dataSource: isDemoMode ? 'demo' : 'live',
+                    reportedByDevice: true,
+                    voltageConfig: '12V DC (1A)',
+                    sharedPipeMode: false,
+                  });
+                }
+              } else {
+                Alert.alert('Command Failed', ack?.message || 'Could not reach controller.');
+              }
+            } catch (err: any) {
+              Alert.alert('Error', err.message || 'Dispatch error');
             }
           },
         },
@@ -79,23 +89,29 @@ export default function HomeScreen() {
       [
         {
           text: 'OK',
-          onPress: () => {
-            if (setPumpStatus) {
-              setPumpStatus({
-                state: 'OFF',
-                mode: 'EMERGENCY_STOP',
-                activeZone: null,
-                valveVegetable: 'CLOSED',
-                valvePaddy: 'CLOSED',
-                currentRunDurationSeconds: 0,
-                dailyRuntimeSeconds: pumpStatus?.dailyRuntimeSeconds ?? 1080,
-                lastStartTime: null,
-                lastStopTime: new Date().toISOString(),
-                dataSource: isDemoMode ? 'demo' : 'live',
-                reportedByDevice: true,
-                voltageConfig: '12V DC (1A)',
-                sharedPipeMode: false,
-              });
+          onPress: async () => {
+            try {
+              const { deviceCommunicationService } = await import('../../services/connection/DeviceCommunicationService');
+              await deviceCommunicationService.emergencyStop();
+              if (setPumpStatus) {
+                setPumpStatus({
+                  state: 'OFF',
+                  mode: 'EMERGENCY_STOP',
+                  activeZone: null,
+                  valveVegetable: 'CLOSED',
+                  valvePaddy: 'CLOSED',
+                  currentRunDurationSeconds: 0,
+                  dailyRuntimeSeconds: pumpStatus?.dailyRuntimeSeconds ?? 1080,
+                  lastStartTime: null,
+                  lastStopTime: new Date().toISOString(),
+                  dataSource: isDemoMode ? 'demo' : 'live',
+                  reportedByDevice: true,
+                  voltageConfig: '12V DC (1A)',
+                  sharedPipeMode: false,
+                });
+              }
+            } catch (err: any) {
+              Alert.alert('E-STOP Error', err.message || 'E-STOP dispatch failed');
             }
           },
         },
