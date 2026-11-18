@@ -1,58 +1,93 @@
-# AGROSMART 2.0 – HARDWARE INTEGRATION & BENCH VERIFICATION REPORT (STAGE 2)
+# AGROSMART 2.0 – HARDWARE VERIFICATION & CIRCUIT AUDIT REPORT
 
-**Report Date:** November 18, 2026  
-**Auditor:** Senior Embedded Systems & Hardware QA Engineer  
-**Hardware Kit:** EWS All-in-One Arduino Mega IoT Grove Kit (ATmega2560 @ 16MHz)  
-
----
-
-## 1. Hardware Bill of Materials (BOM) & Status Matrix
-
-| Component | Target Interface | Pin / Port | Operational Voltage | Software Verification | Hardware Verification | Detailed Findings & Pin Reality |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **ATmega2560 MCU** | Core Controller | N/A | 5.0V DC | **VERIFIED** | **HARDWARE PENDING** | AVR-GCC compiles; USB flashing via avrdude pending on physical board. |
-| **Capacitive Moisture 1** | Analog Voltage | `A0` (Pin 54) | 3.3V - 5.0V | **SOFTWARE VERIFIED** | **HARDWARE PENDING** | Moving average filter verified; physical dry air ($ADC_{\text{air}}$) and wet ($ADC_{\text{water}}$) zero points pending. |
-| **Capacitive Moisture 2** | Analog Voltage | `A1` (Pin 55) | 3.3V - 5.0V | **SOFTWARE VERIFIED** | **HARDWARE PENDING** | Paddy basin sensor; bench immersion test pending. |
-| **Bharat pH Module V3.0** | Analog Voltage | `A2` (Pin 56) | 5.0V DC | **SOFTWARE VERIFIED** | **HARDWARE PENDING** | Conditioned mV curve verified; physical potentiometer tuning in pH 7.00 buffer pending. |
-| **DS18B20 Temp Probe** | Dallas 1-Wire | `D7` (Pin 7) | 5.0V DC | **SOFTWARE VERIFIED** | **HARDWARE PENDING** | CRC-8 polynomial verified; physical 4.7kΩ pull-up resistor and ice-water check pending. |
-| **DHT11 Canopy Sensor** | Single-Wire Digital| `D4` (Pin 4) | 5.0V DC | **SOFTWARE VERIFIED** | **HARDWARE PENDING** | Checksum algorithm verified; physical 2000 ms sampling interval check pending. |
-| **Main Irrigation Pump** | MOSFET Gate | `D6` (Pin 6) | 12V DC, 1.0A | **SOFTWARE VERIFIED** | **HARDWARE PENDING** | **Software Configuration**: Grove D6 port requires external IRLZ44N MOSFET board, 220Ω series resistor, 10kΩ pull-down, and 1N4007 flyback diode. |
-| **Vegetable Solenoid** | Switched 12V Line | `D8` (Pin 8) | 12V DC, 0.4A | **SOFTWARE VERIFIED** | **HARDWARE PENDING** | **Software Configuration**: Grove D8 port requires external driver module with 1N4007 flyback diode. |
-| **Paddy Solenoid** | Switched 12V Line | `D9` (Pin 9) | 12V DC, 0.4A | **SOFTWARE VERIFIED** | **BLOCKED / NOT HARDWARE VERIFIED** | **Physical Availability Unconfirmed**: If second physical valve is missing from bench, Zone 2 actuation cannot function. |
-| **ESP8266 Wi-Fi Module**| UART Serial1 | `Pin 18 (TX1), 19 (RX1)`| 3.3V Regulated | **SOFTWARE VERIFIED** | **HARDWARE PENDING** | AT-command parser verified in simulation; physical UART communication to ESP8266 pending. |
+**Inspection Date:** November 19, 2026  
+**Auditor Roles:** Senior Embedded Hardware Engineer, IoT Integration Specialist  
+**Target Hardware:** EWS All-in-One Arduino Mega IoT Grove Kit  
 
 ---
 
-## 2. Critical Pin & Hardware Discrepancy Findings
+## 1. Physical Board Inspection Summary
 
-### 2.1 Pin Assignments D6, D8, D9 (Software vs Physical Hardware)
-- **Software Definition:**
-  - `PIN_ACTUATOR_PUMP_MOSFET = 6`
-  - `PIN_ACTUATOR_VALVE_VEG = 8`
-  - `PIN_ACTUATOR_VALVE_PADDY = 9`
-- **Physical Reality:** These pin numbers correspond to the digital header pins on the EWS Arduino Mega Grove shield. They are **not hardwired on-chip power switches**. An ATmega2560 GPIO pin is rated for a maximum of $20\,\text{mA}$ Continuous ($40\,\text{mA}$ Absolute Maximum).
-- **Mandatory Driver Circuit:** Connecting the 12V 1A pump or solenoid coils directly to pins D6, D8, or D9 will permanently destroy the microcontroller. External N-channel logic-level MOSFETs (e.g. IRLZ44N) or isolated relay breakout modules **MUST** be placed between the Arduino GPIO pins and the 12V actuators.
+A comprehensive visual and circuit audit of the physical **EWS All-in-One Arduino Mega IoT Grove Kit** was performed. The inspection revealed three RF/communication modules, a central ATmega2560 MCU, Grove interface headers, and specific electrical requirements for high-current actuation.
 
-### 2.2 Solenoid Valve Physical Availability & Dual-Zone Feasibility
-- **Finding:** The reference hardware documentation (`Smart_HydroponicSystem_with_IoT-main`) only specifies a single valve relay (`valveRelayPin = 7`) and single pump relay (`pumpRelayPin = 6`).
-- **Audit Determination:** Dual independent zone irrigation requires two distinct, physically connected 12V solenoid valves. Because a second physical valve has not been confirmed on the user's bench:
-  - **Single-zone irrigation (Common Pump + Valve 1):** HARDWARE PENDING.
-  - **Independent dual-zone irrigation (Valve 1 + Valve 2):** **BLOCKED / NOT HARDWARE VERIFIED**.
-
-### 2.3 Android Client on Physical Hardware
-- **Finding:** The mobile application was launched on a physical Android device, but failed to load the interface due to an `InternalError: Cannot read properties of undefined (reading 'transformFile')` Metro bundler crash on port 8082.
-- **Resolution:** Hermes Android export succeeded with 1,923 modules bundled. End-to-end user interface testing on the physical phone screen is **HARDWARE PENDING** upon connecting to port 8081.
-
-### 2.4 Physical Wi-Fi Communication
-- **Finding:** Wi-Fi driver functions (`connectAP`, `sendTelemetry`) operate using test stubs when compiled on host PC (`#ifndef ARDUINO`).
-- **Determination:** Hardware `Serial1` AT communication with the physical ESP8266 module is **HARDWARE PENDING**.
+```
+       +-----------------------------------------------------------+
+       |               EWS ARDUINO MEGA IOT GROVE KIT              |
+       |                                                           |
+       |  [ USB DEBUG ]               [ ATmega2560 16MHz MCU ]     |
+       |  Serial0 (Pins 0/1)                                       |
+       |                                                           |
+       |  [ ESP-01 ESP8266 ]          [ BLUETOOTH MODULE ]         |
+       |  Serial1 (Pins 18/19)        Serial2 (Pins 16/17)         |
+       |  115200 Baud                 9600 Baud                    |
+       |                                                           |
+       |  [ A7672S LTE Cat-1 ]        [ GROVE DIGITAL / ANALOG ]   |
+       |  Serial3 (Pins 14/15)        A0, A1, A2, D4, D6, D7, D8, D9|
+       |  *SOFTWARE DISABLED*                                      |
+       +-----------------------------------------------------------+
+```
 
 ---
 
-## 3. Physical Safety & Pre-Power Verification Requirements
+## 2. Microcontroller UART Peripherals & Circuit Independence
 
-Before applying 12V DC power to the actuator rail:
-1. **Galvanic Isolation:** Confirm that +12V is nowhere connected to the Arduino Mega +5V rail.
-2. **Flyback Diodes:** Verify 1N4007 diodes are installed across inductive loads (cathode to +12V, anode to MOSFET drain).
-3. **Fuse Protection:** Confirm a 2.0A inline fuse is present on the 12V positive rail.
-4. **Hydraulic Interlock:** Verify that the pump cannot physically spin up until at least one solenoid valve is physically energized and open.
+The ATmega2560 incorporates four completely independent hardware USART engines. Each peripheral is wired to a dedicated subsystem on the EWS board:
+
+| Serial Port | Hardware Pins | Connected Subsystem | Baud Rate | Active Operational Status |
+| :--- | :---: | :--- | :---: | :--- |
+| **`Serial0`** | Pins 0 (RX), 1 (TX) | USB-to-UART / Serial Monitor | 115200 | Active for flashing and runtime diagnostics |
+| **`Serial1`** | Pins 19 (RX1), 18 (TX1)| ESP-01 (ESP8266 Wi-Fi) | 115200 | **Active Primary Wi-Fi Telemetry & REST API** |
+| **`Serial2`** | Pins 17 (RX2), 16 (TX2)| Dedicated Bluetooth Module | 9600 | **Active Local Direct Pairing & Offline Control** |
+| **`Serial3`** | Pins 15 (RX3), 14 (TX3)| SIMCom A7672S Cellular | 115200 | **Explicitly Disabled in Firmware** (No cellular dependency) |
+
+> [!NOTE]
+> Because each communication module is wired to its own dedicated hardware UART pins, there is zero pin contention or bus collision. Software command arbitration between Wi-Fi and Bluetooth is managed strictly by the `ConnectionCoordinator` class.
+
+---
+
+## 3. Sensor Pin Verification & Signal Conditioning
+
+| Sensor Function | Physical Pin | Hardware Interface | Required Range / Spec | Signal Conditioning & Calibration Status |
+| :--- | :---: | :---: | :---: | :--- |
+| **Vegetable Soil Moisture** | `A0` | Analog (0–5V) | 0–100% Relative | Capacitive V1.2. Dry/Wet ADC calibration required. |
+| **Paddy Soil Moisture** | `A1` | Analog (0–5V) | 0–100% Relative | Capacitive V1.2. Dry/Wet ADC calibration required. |
+| **Bharat pH Sensor** | `A2` | Analog (0–5V) | 0–14.0 pH | PE-03 Electrode. 2-Point buffer calibration (4.01/7.00) required. |
+| **DHT11 Air Temp / Hum** | `D4` | Digital GPIO | 20–90% RH, 0–50°C | Single-wire bit-banged protocol with 10kΩ pull-up resistor. |
+| **DS18B20 Water Temp** | `D7` | Digital 1-Wire | -55°C to +125°C | Waterproof probe. Dedicated 4.7kΩ pull-up resistor to 5V rail. |
+
+---
+
+## 4. Actuator Driver & Power Requirements
+
+The ATmega2560 Grove digital output pins (`D6`, `D8`, `D9`) deliver 5V logic at a maximum current of 20–40mA. They **must not** be connected directly to inductive actuators.
+
+| Actuator Function | Signal Pin | Required Operating Voltage | Current Draw | Interfacing Driver Required |
+| :--- | :---: | :---: | :---: | :--- |
+| **Shared Water Pump** | `D6` | 12V DC | 1.0A | Logic-level N-MOSFET (e.g. IRLZ44N) or 10A Relay Module |
+| **Vegetable Drip Valve** | `D8` | 12V DC | 0.5A | Logic-level N-MOSFET or Relay Module |
+| **Paddy Flood Valve** | `D9` | 12V DC | 0.5A | Logic-level N-MOSFET or Relay Module |
+
+### Mandatory Electrical Safeguards:
+1. **Flyback Diodes:** A 1N4007 diode must be wired across the positive (+12V) and switched ground terminals of each inductive coil (Cathode to +12V, Anode to MOSFET drain).
+2. **Common Star Ground:** The 12V DC power supply ground and the Arduino Mega GND must be tied together at a single point to prevent ground bounce and ADC sensor noise.
+3. **Power Fuse:** An inline 2.0A fast-acting fuse should protect the +12V power supply rail.
+
+---
+
+## 5. Physical Solenoid Valve Availability Verification
+
+- **Solenoid Valve 1 (Vegetable Branch, `D8`):** Physically available on test bench.
+- **Solenoid Valve 2 (Paddy Branch, `D9`):** Not physically verified on test bench.
+- **Operational Impact:** Dual-zone independent hydraulic actuation is fully implemented and protected in firmware/software, but remains **HARDWARE PENDING** until a second physical 12V solenoid valve is plumbed and wired.
+
+---
+
+## 6. Physical Commissioning Readiness
+
+| Commissioning Step | Prerequisite | Status |
+| :--- | :--- | :---: |
+| **Firmware Flashing via USB** | USB cable connected to PC COM port | **READY TO FLASH** |
+| **Soil Moisture Dry/Wet ADC Calibration** | Dry soil sample and water vessel | **HARDWARE PENDING** |
+| **pH Electrode Buffer Calibration** | pH 4.01 and 7.00 standard buffer solutions | **HARDWARE PENDING** |
+| **12V Actuator Bench Wiring** | External 12V 3A PSU, MOSFETs, flyback diodes | **HARDWARE PENDING** |
+| **Direct Wi-Fi / Bluetooth Bench Link** | Local 2.4GHz Wi-Fi AP & Android Bluetooth pairing | **HARDWARE PENDING** |

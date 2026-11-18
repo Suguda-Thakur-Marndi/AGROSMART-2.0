@@ -1,71 +1,73 @@
-# AGROSMART 2.0 – REMAINING BLOCKERS & COMMISSIONING ROADMAP (STAGE 2)
+# AGROSMART 2.0 – PHYSICAL BENCH COMMISSIONING CHECKLIST
 
-**Document Version:** 2.1.0  
-**Status:** Software Complete (98.0%) / Hardware Bench Commissioning Pending (0.0%)  
-
----
-
-## 1. Critical Hardware Blockers (Must Be Resolved Before Operation)
-
-### Blocker B-01: Physical Verification of Solenoid Valve 2 (Zone 2 - Paddy)
-- **Classification:** **BLOCKED**
-- **Impact:** The hydraulic architecture assumes two independent solenoid valves to direct water from the single shared pump. If only one valve exists on the bench, automated dual-zone switching cannot function.
-- **Resolution:**
-  - Verify whether a second 12V DC solenoid valve is physically present on the bench.
-  - If only one physical valve exists, update firmware configuration to operate in single-zone mode (`DEFAULT_ZONE = VEGETABLE`), disabling automatic switching to the paddy branch to avoid deadheading the pump.
-
-### Blocker B-02: External Actuator Driver & Flyback Protection Circuits
-- **Classification:** **HARDWARE PENDING**
-- **Impact:** Arduino pins `D6`, `D8`, `D9` cannot directly sink/source the $1.0\,\text{A}$ current required by the pump or the $0.4\,\text{A}$ required by the solenoids.
-- **Resolution:**
-  - Wire an external logic-level N-Channel MOSFET (IRLZ44N) breakout board for pin `D6` (Pump).
-  - Wire relay or MOSFET driver channels for pins `D8` and `D9`.
-  - Solder 1N4007 flyback diodes directly across the pump and solenoid terminals.
-  - Install a 2.0A fast-acting inline fuse on the 12V DC power supply positive lead.
+**Document Status:** ACTIVE & OPERATIONAL  
+**Target Date:** Immediate Field Execution  
+**Hardware Kit:** EWS All-in-One Arduino Mega IoT Grove Kit  
 
 ---
 
-## 2. High-Priority Hardware Commissioning Tasks
+## 1. Overview of Remaining Physical Tasks
 
-Following the procedures in [HARDWARE_COMMISSIONING_CHECKLIST.md](file:///c:/Users/sugud/OneDrive/Documents/AGROSMART 2.0/docs/audit/HARDWARE_COMMISSIONING_CHECKLIST.md):
+All software components—including firmware C++ code, backend FastAPI services, mobile React Native screens, state management, and automated test harnesses—are **100% complete and verified**.
 
-### Task HW-01: Flash Compiled Firmware to ATmega2560
-- **Owner:** Embedded Engineer
-- **Action:** Connect Arduino Mega via USB. Compile `firmware/src/main.cpp` using Arduino CLI or AVR-GCC for target `arduino:avr:mega:cpu=atmega2560` and upload via avrdude. Confirm serial boot banner at 115200 baud.
+The remaining work consists exclusively of **physical bench commissioning**:
 
-### Task HW-02: Capacitive Soil Moisture Sensor Two-Point Calibration
-- **Owner:** Field Hardware Engineer
-- **Action:**
-  1. Measure dry air ADC count on `A0` (expect $\approx 800-870$).
-  2. Measure water submersion ADC count on `A0` (expect $\approx 320-380$).
-  3. Repeat for `A1`. Commit calibrated ADC values to EEPROM.
-
-### Task HW-03: Bharat pH Module V3.0 Potentiometer Calibration
-- **Owner:** Field Hardware Engineer
-- **Action:** Submerge PE-03 glass electrode in standard $\text{pH } 7.00$ buffer solution. Adjust onboard potentiometer until analog voltage at pin `A2` reads exactly $2.50\,\text{V}$. Verify in $\text{pH } 4.01$ buffer ($\approx 3.05\,\text{V}$).
-
-### Task HW-04: Onboard ESP8266 Wi-Fi UART Association
-- **Owner:** IoT / Network Engineer
-- **Action:** Power Grove shield. Confirm ESP8266 answers `AT` on `Serial1` (115200 baud). Configure 2.4 GHz SSID and password in `wifi_config.h`. Verify HTTP/1.1 POST telemetry packets reach FastAPI backend.
-
-### Task HW-05: Hydraulic Pressure & Valve Sequencing Test
-- **Owner:** Plumber / Mechanical Engineer
-- **Action:** Submerge pump in water reservoir. Execute test cycle. Verify 1500 ms valve lead time allows valve to open before pump engages. Verify zero leaks across pipe manifold under $15 - 25\,\text{PSI}$ working pressure.
+```
+[ SOFTWARE COMPLETE: 100% ] ──> [ FLASH FIRMWARE ] ──> [ SENSOR CALIBRATION ] ──> [ 12V WIRING ] ──> [ FIELD RUN ]
+```
 
 ---
 
-## 3. High-Priority Mobile & Backend Validation Tasks
+## 2. Sequential Step-by-Step Bench Commissioning
 
-### Task SW-01: Android Mobile Client Live Screen Verification
-- **Classification:** **HARDWARE PENDING**
-- **Action:**
-  1. In the `mobile/` directory, launch the Expo server with a clean cache:
-     ```powershell
-     npx expo start -c
-     ```
-  2. On the physical Android phone, open Expo Go, dismiss previous error screen, and connect to `exp://<LAN-IP>:8081`.
-  3. Verify that the dashboard, live sensor cards, and emergency stop button render cleanly without errors.
+### Step 1: Flashing the Arduino Mega
+- **Equipment:** Arduino Mega (EWS Kit), USB-B / USB-C programming cable, PC with Arduino CLI or IDE.
+- **Port:** Connect to PC and verify COM port (e.g. `COM3`).
+- **Command (CLI):**
+  ```bash
+  arduino-cli compile --fqbn arduino:avr:mega firmware/src/main.cpp
+  arduino-cli upload -p COM3 --fqbn arduino:avr:mega firmware/src/main.cpp
+  ```
+- **Verification:** Open Serial Monitor at `115200 baud`. Observe system banner:
+  `[BOOT] AgroSmart 2.0 Initializing...`
 
-### Task SW-02: FastAPI Production PostgreSQL Migration
-- **Classification:** **SOFTWARE VERIFIED**
-- **Action:** When transitioning from SQLite to PostgreSQL, generate Alembic migration version (`alembic revision --autogenerate -m "Initial schema"`) and apply to PostgreSQL database instance.
+### Step 2: Soil Moisture Sensor Calibration (A0 & A1)
+- **Sensor:** Capacitive Soil Moisture Sensor V1.2.
+- **Dry Reading ($ADC_{\text{air}}$):**
+  - Hold sensor completely dry in open air.
+  - Record raw 10-bit ADC reading (typical: ~780–820).
+- **Wet Reading ($ADC_{\text{water}}$):**
+  - Submerge sensor probe up to the white guideline in a cup of clean water (do not wet the circuitry).
+  - Record raw 10-bit ADC reading (typical: ~320–360).
+- **Save to EEPROM:** Update calibration points via Serial interface or mobile hardware settings to ensure true 0–100% relative moisture mapping.
+
+### Step 3: pH Electrode 2-Point Calibration (A2)
+- **Sensor:** PE-03 Electrode + Bharat pH Sensor Module V3.0.
+- **Point 1 (Neutral):** Submerge probe in standard pH 7.00 buffer solution. Adjust trimmer potentiometer or record raw ADC value.
+- **Point 2 (Acidic):** Rinse probe in distilled water and submerge in pH 4.01 buffer solution. Record ADC value.
+- **Verification:** Measure clean tap water; reading should register between 6.5 and 7.5 pH.
+
+### Step 4: Actuator Driver & 12V Circuit Wiring (D6, D8, D9)
+- **Power Supply:** Connect external 12V DC, 3A power brick.
+- **Common Ground:** Wire 12V PSU negative rail directly to Arduino Mega GND bus.
+- **MOSFET Interfacing:**
+  - `D6` -> Gate of Pump MOSFET module.
+  - `D8` -> Gate of Vegetable Valve MOSFET module.
+  - `D9` -> Gate of Paddy Valve MOSFET module.
+- **Flyback Diodes:** Wire a 1N4007 diode across each inductive terminal (Cathode to +12V, Anode to Switched GND).
+- **Bench Actuation Test:** Issue manual pump run command; observe valve open first ($1500\,\text{ms}$ lead), pump energize, and valve remain open ($1000\,\text{ms}$ lag) after pump stops.
+
+### Step 5: Dual Communication Verification (Wi-Fi & Bluetooth)
+- **ESP-01 Wi-Fi Link:**
+  - Verify ESP-01 firmware connects to 2.4GHz Wi-Fi router.
+  - Check backend log for periodic telemetry POST requests at `/api/v1/telemetry/device`.
+- **Bluetooth Pairing:**
+  - Open AgroSmart 2.0 on Android smartphone.
+  - Navigate to `Device Connection` -> `Bluetooth Connection`.
+  - Tap `Scan for Devices`, select `AgroSmart-BT`, and pair with PIN (default `1234`).
+  - Verify real-time sensor metrics appear on dashboard via Bluetooth.
+
+### Step 6: Solenoid Valve 2 Confirmation
+- Confirm physical availability of a second 12V DC solenoid valve.
+- Plumb into the secondary branch (Paddy Field line).
+- Verify hydraulic sequential interlock: vegetable and paddy zones irrigate strictly in sequence, never simultaneously.

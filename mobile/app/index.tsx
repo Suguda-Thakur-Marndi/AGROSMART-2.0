@@ -6,20 +6,24 @@ import { useAppStore } from '../store/appStore';
 
 export default function EntryScreen() {
   const router = useRouter();
-  const { isAuthenticated, isDemoMode } = useAppStore();
+  const { isAuthenticated, isDemoMode, checkAuth } = useAppStore();
 
   useEffect(() => {
-    // In demo mode or if authenticated, proceed to main dashboard tabs
-    const timer = setTimeout(() => {
-      if (isAuthenticated || isDemoMode) {
+    let isMounted = true;
+    checkAuth().finally(() => {
+      if (!isMounted) return;
+      const state = useAppStore.getState();
+      if (state.isAuthenticated || state.isDemoMode) {
         router.replace('/(tabs)');
       } else {
         router.replace('/(auth)/login');
       }
-    }, 100);
+    });
 
-    return () => clearTimeout(timer);
-  }, [isAuthenticated, isDemoMode, router]);
+    return () => {
+      isMounted = false;
+    };
+  }, [checkAuth, router]);
 
   return (
     <View style={styles.container}>
