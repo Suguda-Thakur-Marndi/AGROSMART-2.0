@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:max(env(safe-area-inset-bottom,0px),12px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"secondary-container":"#acf3b9","tertiary":"#331b02","secondary-fixed-dim":"#91d69f","surface-tint":"#416652","on-tertiary":"#ffffff","surface-dim":"#dcdad1","primary-fixed-dim":"#a7d0b7","surface":"#fcf9ef","surface-container":"#f0eee4","surface-container-low":"#f6f4ea","outline-variant":"#c1c8c1","on-tertiary-fixed":"#2c1600","on-tertiary-fixed-variant":"#5e4122","surface-container-highest":"#e4e3d9","tertiary-fixed-dim":"#eabe96","on-primary-fixed":"#002112","on-error-container":"#93000a","background":"#fcf9ef","on-secondary-fixed":"#00210c","surface-variant":"#e4e3d9","tertiary-fixed":"#ffdcbe","on-secondary":"#ffffff","on-error":"#ffffff","error":"#ba1a1a","tertiary-container":"#4b3013","surface-container-high":"#eae8de","surface-bright":"#fcf9ef","primary":"#002717","on-primary":"#ffffff","on-primary-container":"#81a890","on-background":"#1b1c16","secondary-fixed":"#acf3b9","on-surface-variant":"#414843","primary-container":"#183d2b","inverse-primary":"#a7d0b7","on-primary-fixed-variant":"#294e3b","on-secondary-fixed-variant":"#075228","secondary":"#286b3d","surface-container-lowest":"#ffffff","error-container":"#ffdad6","inverse-on-surface":"#f3f1e7","on-tertiary-container":"#bf9872","on-secondary-container":"#2f7143","primary-fixed":"#c3ecd2","on-surface":"#1b1c16","outline":"#727973","inverse-surface":"#30312a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"1.25rem","margin-compact":"1rem","space-lg":"1.25rem","space-xl":"1.75rem","space-2xl":"2.5rem","space-sm":"0.5rem","gutter":"1rem","space-md":"0.75rem","space-xs":"0.25rem","gutter-sm":"0.75rem"},"fontFamily":{"headline-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"metric-xl":["Plus Jakarta Sans"],"metric-xl-mobile":["Plus Jakarta Sans"],"display-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"metric-lg":["Plus Jakarta Sans"]},"fontSize":{"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"700"}],"display-lg":["44px",{"lineHeight":"52px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"500"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"600"}],"metric-xl":["32px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"800"}],"metric-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"800"}],"display-md":["36px",{"lineHeight":"44px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"600"}],"metric-lg":["24px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}}</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface-container-low text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(24,61,43,0.04)] pt-safe"><div class="h-6 px-margin flex items-center justify-between text-on-surface select-none pt-1"><span class="font-label-sm text-label-sm tracking-normal font-semibold">09:41</span><div class="flex items-center gap-1.5 text-on-surface"><span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span><span class="font-label-sm text-label-sm">4G</span><span class="material-symbols-outlined text-[14px]">wifi</span><span class="font-label-sm text-label-sm ml-0.5">88%</span><span class="material-symbols-outlined text-[15px]">battery_charging_80</span></div></div><div class="h-14 px-margin flex items-center justify-between gap-gutter"><div class="flex items-center gap-space-sm"><img alt="AgroSmart 2.0 Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrCrA_Gwq-L21czL_cq5dDso9sTq9Nwcz-r-ngz9CU7psBAqUJhxTDYBnb8AjCci89DGxqH-bRVtNTMWq82TSlNAPr539B90QBQEC5VLHU-AIoNfy4uWlm6s8j9C9Yfx93l0yh2IZ3nGoCWYdXQrAL4z_7vvuN_XqWG6pLsCBQUz_jUk8SfzrUrCam_yRow7qvDDJy66GjgPi9-8S4XLZhEoJ_1bPkjMYK90OSfhvl-NXg"/><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold leading-none">AgroSmart 2.0</span><h1 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-tight truncate">Home</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Telemetry Notifications" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col w-full px-margin pt-20 pb-28 bg-surface-container-low min-h-screen"><div class="flex flex-col w-full space-y-space-lg">
+<!-- Hardware Interlock & Pump Hub Banner -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[20px]">water_pump</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-primary">Master 12V DC Pump</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-secondary-container text-on-secondary-container">
+              READY
+            </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Relay #1 (1.0A Max) • Arduino Mega Interlock</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wider">Flow Coeff</span>
+<span class="font-metric-lg text-metric-lg text-primary">15 <span class="font-label-md text-label-md font-normal text-on-surface-variant">L/min</span></span>
+</div>
+</div>
+<!-- Sequential Safety Interlock Alert Box -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5" style="font-variation-settings: 'FILL' 1;">security</span>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-primary font-semibold block">Sequential Hydraulic Lock Active</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+          Single line distribution prevents dual-solenoid activation. Activating one plot automatically queues the alternate. Max safety run limit: 15 mins.
+        </p>
+</div>
+</div>
+<!-- Emergency Kill Switch & Lock State Indicators -->
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 bg-error text-on-error h-12 rounded-full font-label-md text-label-md uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-sm" id="emergency-stop-btn">
+<span class="material-symbols-outlined text-[20px]">power_settings_new</span>
+        Emergency Halt Relays
+      </button>
+<div class="flex items-center gap-1.5 bg-surface-container px-3 h-12 rounded-full">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Dry-Run OK</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-3 h-12 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">cloud</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Rain: Clear</span>
+</div>
+</div>
+</div>
+<!-- Zone Solenoid Controls Grid -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">alt_route</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Active Solenoid Valves</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Independent Channels</span>
+</div>
+<!-- Plot A: Vegetable Drip Line Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">grass</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-body-lg text-body-lg text-primary font-bold">Plot A: Vegetable Drip</h3>
+<span class="font-label-sm text-label-sm bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant">Relay #2 (A1)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Target Range: 35% – 55% Moisture</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-secondary-fixed text-on-secondary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Idle / Standby
+        </span>
+</div>
+<!-- Soil Moisture Gauge & Reading -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-variant" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="38, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<span class="material-symbols-outlined text-secondary text-[16px] absolute inset-auto">water_drop</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Current Volumetric</span>
+<div class="flex items-baseline gap-1">
+<span class="font-metric-lg text-metric-lg text-primary">38%</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Approaching Threshold</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Auto-Cutoff</span>
+<span class="font-body-md text-body-md text-primary font-bold">55% Soil Sat</span>
+</div>
+</div>
+<!-- Trigger Action -->
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 bg-primary text-on-primary h-12 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 active:scale-95 transition-all" id="valve-a-btn">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+          Request 5-Min Water Drip
+        </button>
+<div class="h-12 w-12 rounded-full bg-surface-container flex items-center justify-center text-primary-container" title="Valve A1 Manual Toggle">
+<span class="material-symbols-outlined text-[20px]">toggle_off</span>
+</div>
+</div>
+</div>
+<!-- Plot B: Lowland Paddy Submerged Inflow Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">waves</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-body-lg text-body-lg text-primary font-bold">Plot B: Lowland Paddy</h3>
+<span class="font-label-sm text-label-sm bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant">Relay #3 (B2)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Standing Depth Target: 5.0 cm</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+          Resting
+        </span>
+</div>
+<!-- Water Level Visual Bar Gauge -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Level Depth:</span>
+<span class="font-metric-lg text-metric-lg text-primary">4.2 <span class="font-label-md text-label-md font-normal text-on-surface-variant">cm</span></span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Min 3.0 cm • Max 5.0 cm</span>
+</div>
+<!-- Depth indicator strip -->
+<div class="w-full h-3 bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full rounded-full" style="width: 84%;"></div>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface-variant px-0.5">
+<span>0.0 cm (Dry)</span>
+<span>Target: 5.0 cm</span>
+</div>
+</div>
+<!-- Action -->
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 bg-surface-container text-primary h-12 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 active:scale-95 transition-all" id="valve-b-btn">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+          Top-Up Water Layer (+0.8cm)
+        </button>
+<div class="h-12 w-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant" title="Valve B2 Inactive">
+<span class="material-symbols-outlined text-[20px]">toggle_off</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Operational Field Context Snapshot -->
+<div class="grid grid-cols-2 gap-gutter">
+<div class="relative h-28 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A lush green organic vegetable garden bed with automated micro-drip irrigation tubes nestled gently along healthy dark soil in soft morning farm sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTdrKO_PGVRdyAJLXecipiGeKXH2aCaGEpH43qfSYU3hock7y6MkEBHGk5dFxWsTfBv93uejowZx1cQn0am1U6RUD_POsL9j7PZsTAsrFtE76G0E1r4WhMpO7s-MogG6shj5tKjf8fzEGdZkZvdTB5kuHbV-SKhaH-oZTODhXW6AHRSHHaw0QXeP4crT2W-UQOfJNrv5GMxT8rp58TnwkK8xacGI25Wj8VmRsOCNRp"/>
+<div class="absolute inset-0 bg-primary/30 flex items-end p-2.5">
+<span class="text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+          Vegetable Bed Live
+        </span>
+</div>
+</div>
+<div class="relative h-28 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Lowland paddy field terrace reflecting early dawn light with gentle water level ripples and lush rice seedlings standing sturdy under automated irrigation monitoring." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGC9uK47kwo4OjktQ87lTfj0EwZvmo30jHfjJWiqwk0BZ82uLUEtgol1ScccSfIHktjfM1DwMN3-iSJ35dLsOkv6o8bjIMj_xBUrkTzPNP3vm5wUqSa3vpxWG41lrYt4k7gw_WqsqzzARiFvTlmLXQlOxkcYcWePwRW7W2PkPNKRBdjtAllw8s9yZCGGaz4cQdvHO9TZuRhJ83Xn2JEtN1n8ee001GW9ua9-uvAx16"/>
+<div class="absolute inset-0 bg-primary/30 flex items-end p-2.5">
+<span class="text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+          Paddy Basin Live
+        </span>
+</div>
+</div>
+</div>
+<!-- Water Management Section (Screen 9 Integration) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">pie_chart</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Water Balance Today</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Est. Telemetry</span>
+</div>
+<!-- Daily Total Metric Block -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Total Estimated Consumption</span>
+<div class="flex items-baseline justify-between">
+<div class="flex items-baseline gap-1.5">
+<span class="font-metric-xl-mobile text-metric-xl-mobile text-primary font-extrabold">240</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">Liters</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container px-2 py-0.5 rounded-full font-semibold">Optimal Range</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-1">
+        *Calculated: Pump run duration × 15 L/min calibrated nozzle rate (flow sensor bypass active).
+      </p>
+</div>
+<!-- Breakdown By Sector -->
+<div class="grid grid-cols-2 gap-gutter-sm">
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1">
+<div class="flex items-center gap-1.5">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase">Plot A (Drip)</span>
+</div>
+<span class="font-metric-lg text-metric-lg text-primary">90 <span class="font-label-md text-label-md font-normal text-on-surface-variant">L</span></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">6 min runtime logged</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1">
+<div class="flex items-center gap-1.5">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase">Plot B (Paddy)</span>
+</div>
+<span class="font-metric-lg text-metric-lg text-primary">150 <span class="font-label-md text-label-md font-normal text-on-surface-variant">L</span></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10 min runtime logged</span>
+</div>
+</div>
+<!-- 7-Day Water Consumption Trend Chart -->
+<div class="pt-space-xs flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary font-bold">7-Day Irrigation Trend (L)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sustainable Baseline: 280 L</span>
+</div>
+<!-- Compact SVG Bar Chart with Sustainable Baseline Line -->
+<div class="w-full bg-surface-container-low rounded-lg p-space-sm flex flex-col gap-1">
+<svg class="w-full h-28" preserveaspectratio="none" viewbox="0 0 280 100">
+<!-- Baseline dashed guideline (sustainable ceiling ~280L) -->
+<line class="text-outline-variant" stroke="currentColor" stroke-dasharray="3,3" stroke-width="1.5" x1="0" x2="280" y1="35" y2="35"></line>
+<!-- Mon: 210L -->
+<rect class="fill-secondary-container" height="42" rx="4" width="18" x="15" y="48"></rect>
+<!-- Tue: 250L -->
+<rect class="fill-secondary-container" height="52" rx="4" width="18" x="55" y="38"></rect>
+<!-- Wed: 180L -->
+<rect class="fill-secondary-container" height="35" rx="4" width="18" x="95" y="55"></rect>
+<!-- Thu: 310L (High weather top-up) -->
+<rect class="fill-secondary" height="68" rx="4" width="18" x="135" y="22"></rect>
+<!-- Fri: 190L -->
+<rect class="fill-secondary-container" height="38" rx="4" width="18" x="175" y="52"></rect>
+<!-- Sat: 220L -->
+<rect class="fill-secondary-container" height="45" rx="4" width="18" x="215" y="45"></rect>
+<!-- Sun (Today): 240L -->
+<rect class="fill-primary" height="50" rx="4" width="18" x="250" y="40"></rect>
+</svg>
+<!-- Day labels -->
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface-variant px-1 font-semibold">
+<span>Mon</span>
+<span>Tue</span>
+<span>Wed</span>
+<span>Thu</span>
+<span>Fri</span>
+<span>Sat</span>
+<span class="text-primary font-bold">Today</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Simulator Toast / Drawer -->
+<div class="hidden bg-primary text-on-primary p-space-sm rounded-lg shadow-md flex items-center justify-between" id="status-toast">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-secondary-fixed animate-spin">refresh</span>
+<span class="font-body-sm text-body-sm truncate" id="toast-message">Relay command dispatched.</span>
+</div>
+<button class="text-on-primary-container p-1" id="toast-close">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+<script>
+  (function() {
+    const valveABtn = document.getElementById('valve-a-btn');
+    const valveBBtn = document.getElementById('valve-b-btn');
+    const emergencyBtn = document.getElementById('emergency-stop-btn');
+    const statusToast = document.getElementById('status-toast');
+    const toastMessage = document.getElementById('toast-message');
+    const toastClose = document.getElementById('toast-close');
+
+    let activeZone = null;
+
+    function showToast(msg) {
+      if (!statusToast) return;
+      toastMessage.textContent = msg;
+      statusToast.classList.remove('hidden');
+      setTimeout(() => {
+        statusToast.classList.add('hidden');
+      }, 4500);
+    }
+
+    if (toastClose) {
+      toastClose.addEventListener('click', () => {
+        statusToast.classList.add('hidden');
+      });
+    }
+
+    if (valveABtn) {
+      valveABtn.addEventListener('click', () => {
+        if (activeZone === 'B') {
+          showToast('Interlock Alert: Valve B2 is running. Valve A1 queued to begin in 4m 12s.');
+        } else {
+          activeZone = 'A';
+          showToast('Relay #2 Activated: Plot A Drip line engaged for 5-minute automated cycle.');
+        }
+      });
+    }
+
+    if (valveBBtn) {
+      valveBBtn.addEventListener('click', () => {
+        if (activeZone === 'A') {
+          showToast('Interlock Alert: Valve A1 has exclusive pump relay. Plot B Paddy queued sequentially.');
+        } else {
+          activeZone = 'B';
+          showToast('Relay #3 Activated: Paddy Inflow Solenoid open until depth reaches 5.0cm.');
+        }
+      });
+    }
+
+    if (emergencyBtn) {
+      emergencyBtn.addEventListener('click', () => {
+        activeZone = null;
+        showToast('EMERGENCY HALT: All relays instantly opened. 12V DC pump disengaged.');
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_20px_rgba(24,61,43,0.06)]" data-active-classes="text-primary-container font-bold [&amp;&gt;div]:bg-secondary-container/70 [&amp;&gt;div&gt;span]:font-bold [&amp;&gt;span]:text-primary-container"><div class="flex justify-between items-center h-16 px-space-sm max-w-md mx-auto"><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="home" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">eco</span></div><span class="font-label-sm text-label-sm mt-0.5">Home</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="farm" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">grid_view</span></div><span class="font-label-sm text-label-sm mt-0.5">Farm</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="irrigation" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">water_drop</span></div><span class="font-label-sm text-label-sm mt-0.5">Irrigation</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="analytics" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">trending_up</span></div><span class="font-label-sm text-label-sm mt-0.5">Analytics</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="profile" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">manage_accounts</span></div><span class="font-label-sm text-label-sm mt-0.5">Profile</span></a></div></nav></body></html>

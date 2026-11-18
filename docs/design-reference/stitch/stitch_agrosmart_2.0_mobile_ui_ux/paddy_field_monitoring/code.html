@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:max(env(safe-area-inset-bottom,0px),12px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"secondary-container":"#acf3b9","tertiary":"#331b02","secondary-fixed-dim":"#91d69f","surface-tint":"#416652","on-tertiary":"#ffffff","surface-dim":"#dcdad1","primary-fixed-dim":"#a7d0b7","surface":"#fcf9ef","surface-container":"#f0eee4","surface-container-low":"#f6f4ea","outline-variant":"#c1c8c1","on-tertiary-fixed":"#2c1600","on-tertiary-fixed-variant":"#5e4122","surface-container-highest":"#e4e3d9","tertiary-fixed-dim":"#eabe96","on-primary-fixed":"#002112","on-error-container":"#93000a","background":"#fcf9ef","on-secondary-fixed":"#00210c","surface-variant":"#e4e3d9","tertiary-fixed":"#ffdcbe","on-secondary":"#ffffff","on-error":"#ffffff","error":"#ba1a1a","tertiary-container":"#4b3013","surface-container-high":"#eae8de","surface-bright":"#fcf9ef","primary":"#002717","on-primary":"#ffffff","on-primary-container":"#81a890","on-background":"#1b1c16","secondary-fixed":"#acf3b9","on-surface-variant":"#414843","primary-container":"#183d2b","inverse-primary":"#a7d0b7","on-primary-fixed-variant":"#294e3b","on-secondary-fixed-variant":"#075228","secondary":"#286b3d","surface-container-lowest":"#ffffff","error-container":"#ffdad6","inverse-on-surface":"#f3f1e7","on-tertiary-container":"#bf9872","on-secondary-container":"#2f7143","primary-fixed":"#c3ecd2","on-surface":"#1b1c16","outline":"#727973","inverse-surface":"#30312a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"1.25rem","margin-compact":"1rem","space-lg":"1.25rem","space-xl":"1.75rem","space-2xl":"2.5rem","space-sm":"0.5rem","gutter":"1rem","space-md":"0.75rem","space-xs":"0.25rem","gutter-sm":"0.75rem"},"fontFamily":{"headline-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"metric-xl":["Plus Jakarta Sans"],"metric-xl-mobile":["Plus Jakarta Sans"],"display-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"metric-lg":["Plus Jakarta Sans"]},"fontSize":{"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"700"}],"display-lg":["44px",{"lineHeight":"52px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"500"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"600"}],"metric-xl":["32px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"800"}],"metric-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"800"}],"display-md":["36px",{"lineHeight":"44px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"600"}],"metric-lg":["24px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}}</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface-container-low text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(24,61,43,0.04)] pt-safe"><div class="h-6 px-margin flex items-center justify-between text-on-surface select-none pt-1"><span class="font-label-sm text-label-sm tracking-normal font-semibold">09:41</span><div class="flex items-center gap-1.5 text-on-surface"><span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span><span class="font-label-sm text-label-sm">4G</span><span class="material-symbols-outlined text-[14px]">wifi</span><span class="font-label-sm text-label-sm ml-0.5">88%</span><span class="material-symbols-outlined text-[15px]">battery_charging_80</span></div></div><div class="h-14 px-margin flex items-center justify-between gap-gutter"><div class="flex items-center gap-space-sm"><img alt="AgroSmart 2.0 Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrCrA_Gwq-L21czL_cq5dDso9sTq9Nwcz-r-ngz9CU7psBAqUJhxTDYBnb8AjCci89DGxqH-bRVtNTMWq82TSlNAPr539B90QBQEC5VLHU-AIoNfy4uWlm6s8j9C9Yfx93l0yh2IZ3nGoCWYdXQrAL4z_7vvuN_XqWG6pLsCBQUz_jUk8SfzrUrCam_yRow7qvDDJy66GjgPi9-8S4XLZhEoJ_1bPkjMYK90OSfhvl-NXg"/><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold leading-none">AgroSmart 2.0</span><h1 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-tight truncate">Home</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Telemetry Notifications" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col w-full px-margin pt-20 pb-28 bg-surface-container-low min-h-screen"><div class="flex flex-col w-full gap-space-lg">
+<!-- Top Navigation & Context Sub-Header -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<button class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors active:scale-95" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+        Back to Farm
+      </button>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-800 text-[10px] font-bold tracking-wider uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-600 animate-pulse"></span>
+        Demo Mode: Simulated Data
+      </div>
+</div>
+<div class="flex flex-col mt-1">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">Plot B: Lowland Paddy Field</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="font-medium text-secondary">Wetland Rice (Khao Dawk Mali 105)</span>
+<span>•</span>
+<span>Tillering Stage</span>
+</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px] text-secondary">developer_board</span>
+          Arduino Mega IoT • Node #2
+        </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container/60 text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Telemetry Synced
+        </span>
+</div>
+</div>
+</div>
+<!-- Hero Water Depth & Saturation Card -->
+<div class="flex flex-col bg-surface-container-lowest rounded-2xl shadow-[0_4px_20px_-2px_rgba(24,61,43,0.06)] overflow-hidden">
+<!-- Visual Ponding / Aerial Paddy Scene Header -->
+<div class="relative w-full h-44 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High-angle drone aerial view of vibrant lush green terraced paddy rice fields flooded with clear reflective water showing gentle ripples and subtle sky reflections, rich organic deep forest greens and tranquil water tones under natural warm daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXkmWBPYo4nO6LP-9hDJmzoE0OAeMnfd0CHn_6kmWxEJiARWaRgIgeys3mEFcOds9ZObPGKggDWAH4bmz7GP7vpBcpifFuLGmknN_X5uV_FWMNMq0HWqsIfhX6uwHa86r6lX-qjfnOBKVrm-sJx-OqOodOX0mI3xmhT2ORwMQBbe0B8-8LzLyKfS7wobIQR6Q7XWHaoD8g5HCQn_jljEISlg535jNzOIo2N1zFZcvx"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent"></div>
+<!-- Inset Badge on Hero Image -->
+<div class="absolute top-3 left-3 bg-surface-container-lowest/90 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-[#559FC1]">water</span>
+<span class="font-label-md text-label-md text-primary font-bold">Ponding State: Saturated</span>
+</div>
+<div class="absolute bottom-3 inset-x-3 flex items-end justify-between text-on-primary">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed opacity-90 block">Standing Water Level</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-metric-xl text-metric-xl font-extrabold tracking-tight">4.2</span>
+<span class="font-body-md text-body-md font-semibold text-secondary-fixed">cm</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest/20 backdrop-blur-md rounded-xl px-2.5 py-1.5 text-right">
+<span class="font-label-sm text-label-sm block opacity-80">Target Depth</span>
+<span class="font-label-md text-label-md font-bold text-secondary-fixed">3.0 — 5.0 cm</span>
+</div>
+</div>
+</div>
+<!-- Gauge Metrics Strip -->
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Water ripple status graphic -->
+<div class="flex items-center justify-between p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-3">
+<!-- Tactile Water Gauge Ring -->
+<div class="relative w-14 h-14 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 44 44">
+<circle cx="22" cy="22" fill="none" r="18" stroke="#e4e3d9" stroke-width="4.5"></circle>
+<circle cx="22" cy="22" fill="none" r="18" stroke="#559FC1" stroke-dasharray="113.1" stroke-dashoffset="31.6" stroke-linecap="round" stroke-width="4.5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-label-md text-label-md font-bold text-primary">72%</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary leading-tight">Soil Moisture</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Anaerobic mud layer fully flooded</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-secondary-container/80 text-on-secondary-container font-label-md text-label-md font-semibold">
+          Optimal
+        </span>
+</div>
+<!-- Time Filter Tab Bar -->
+<div class="flex p-1 rounded-xl bg-surface-container">
+<button class="flex-1 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-bold shadow-sm transition-all text-center" type="button">
+          24 Hours
+        </button>
+<button class="flex-1 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md font-medium hover:text-primary transition-all text-center" type="button">
+          7 Days
+        </button>
+<button class="flex-1 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md font-medium hover:text-primary transition-all text-center" type="button">
+          30 Days
+        </button>
+</div>
+</div>
+</div>
+<!-- Telemetry Metrics Matrix (2x2 Grid) -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-headline-sm text-headline-sm text-primary">Paddy Biosensors</h3>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Node #2 Online</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- 1. Soil pH Sensor -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(24,61,43,0.04)] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-secondary-container/60 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">science</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-[10px] font-semibold text-secondary">PE-03</span>
+</div>
+<div class="mt-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Mud pH Profile</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-metric-lg text-metric-lg font-bold text-primary">6.8</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">pH</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">
+            Neutral anaerobic bed (Ideal 6.5–7.2)
+          </p>
+</div>
+</div>
+<!-- 2. Root Mud Temperature -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(24,61,43,0.04)] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-secondary-container/60 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">device_thermostat</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-[10px] font-semibold text-secondary">DS18B20</span>
+</div>
+<div class="mt-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Root Bed @ 10cm</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-metric-lg text-metric-lg font-bold text-primary">27.0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">°C</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">
+            Protected by standing water thermal buffer
+          </p>
+</div>
+</div>
+<!-- 3. Microclimate Canopy -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(24,61,43,0.04)] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-[#559FC1]/15 flex items-center justify-center text-[#559FC1]">
+<span class="material-symbols-outlined text-[18px]">cloud</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-[10px] font-semibold text-secondary">DHT11</span>
+</div>
+<div class="mt-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Micro Canopy</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-metric-lg text-metric-lg font-bold text-primary">29°C</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">/ 68%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">
+            Heat Index: 32°C • Low evaporation loss
+          </p>
+</div>
+</div>
+<!-- 4. Inflow Valve & Pump State -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(24,61,43,0.04)] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-secondary-container/60 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">valve</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-[10px] font-bold text-on-secondary-container">STANDBY</span>
+</div>
+<div class="mt-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Solenoid #B2</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">Submerged</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">
+            Auto-open trip &lt;2.0 cm or &lt;60% sat.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Historical Water & Saturation Trend Chart Card -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-[0_4px_16px_-2px_rgba(24,61,43,0.05)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-primary">24h Seepage &amp; Flood Trend</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Continuous slow natural percolation</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1">
+<span class="w-2.5 h-2.5 rounded-full bg-[#559FC1]"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Water (cm)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Moisture %</span>
+</div>
+</div>
+</div>
+<!-- Inline Vector Trend Curve -->
+<div class="relative w-full h-32 bg-surface-container-low rounded-xl p-2 flex flex-col justify-end overflow-hidden">
+<!-- Target Flood Band (3cm to 5cm visual backdrop) -->
+<div class="absolute inset-x-0 bottom-7 top-10 bg-secondary-container/20 border-y border-dashed border-secondary/30 pointer-events-none flex items-center justify-end pr-2">
+<span class="font-label-sm text-[9px] text-secondary font-bold tracking-wider">TARGET BUFFER (3-5 cm)</span>
+</div>
+<svg class="w-full h-24 overflow-visible" preserveaspectratio="none" viewbox="0 0 300 80">
+<!-- Saturation curve (Green top line, nearly steady ~72%) -->
+<path d="M 0,22 Q 75,20 150,23 T 300,24" fill="none" stroke="#286b3d" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Water depth line with smooth seepage drop and auto-top up -->
+<path d="M 0,38 C 50,42 90,48 140,52 C 145,52 147,32 155,30 C 210,34 260,39 300,42" fill="none" stroke="#559FC1" stroke-linecap="round" stroke-width="3"></path>
+<!-- Inflow recharge pulse marker at ~145-155 -->
+<circle class="animate-pulse" cx="152" cy="30" fill="#559FC1" r="4"></circle>
+</svg>
+<!-- Time axis markers -->
+<div class="flex justify-between items-center pt-1 text-on-surface-variant font-label-sm text-label-sm select-none">
+<span>09:00 AM</span>
+<span>15:00 PM</span>
+<span>21:00 PM</span>
+<span>03:00 AM</span>
+<span>Now (4.2cm)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-[#559FC1]">waves</span>
+<span class="font-body-sm text-body-sm">
+        Steady seepage rate: <strong>0.3 cm/day</strong>. Well within normal clay-hardpan retention limit.
+      </span>
+</div>
+</div>
+<!-- Irrigation & Inflow Log Section -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-headline-sm text-headline-sm text-primary">Inflow &amp; Water Admission Log</h3>
+<span class="font-label-sm text-label-sm text-secondary font-bold">Valve Solenoid #B</span>
+</div>
+<div class="flex flex-col bg-surface-container-lowest rounded-2xl p-space-md shadow-[0_2px_12px_rgba(24,61,43,0.04)] gap-space-md">
+<!-- Item 1 -->
+<div class="flex items-start justify-between pb-3 border-b border-surface-container">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-full bg-[#559FC1]/15 text-[#559FC1] flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">water_pump</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">12 min Top-Up Run</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Shared Main Pump • Approx. 90 Liters added</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">Auto-threshold recovery (+1.1 cm)</span>
+</div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant shrink-0">Yesterday 08:00 AM</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-start justify-between">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-full bg-secondary-container/60 text-secondary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">rainy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">Precipitation Assisted</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Natural rainfall event (8mm)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium mt-0.5">Pump start suppressed to conserve energy</span>
+</div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant shrink-0">3 days ago</span>
+</div>
+<!-- Sequential Pump Logic Notice Callout -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[20px] text-amber-700 shrink-0 mt-0.5">info</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Sequential Irrigation Interlock</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-snug">
+            Paddy valve will open strictly after the Vegetable line cycle completes, safeguarding the 1A single-phase pump current limit.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Control Actions -->
+<div class="flex flex-col gap-space-sm pt-1">
+<button class="w-full h-[52px] rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-2 shadow-[0_10px_24px_-4px_rgba(24,61,43,0.18)] active:scale-[0.98] transition-transform" id="manualInflowBtn" type="button">
+<span class="material-symbols-outlined text-[22px] text-secondary-fixed">water_drop</span>
+      Manual Inflow Request
+    </button>
+<button class="w-full h-[48px] rounded-full bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-bold flex items-center justify-center gap-2 transition-colors active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]">straighten</span>
+      Adjust Standing Water Target (Current: 3.0 - 5.0 cm)
+    </button>
+</div>
+<!-- Diagnostic Field Photo Snapshot -->
+<div class="flex flex-col rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_2px_12px_rgba(24,61,43,0.04)] gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">Canopy Camera In-Field</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Plot B Pole #1</span>
+</div>
+<div class="relative w-full h-36 rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close up detailed shot of young Khao Dawk Mali wetland rice tillers standing vigorously in calm clean puddle water with rich clay soil mud visible underneath water and morning dew drops on foliage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQvu_29hcn-N-wGP5bOdwaaNlIKNkhkgxHqNslJlCS9WJV0m4BRX77mW9csHaVKl_m1wKPAUX8RFj8Wp1XCak1VzkdDxBGUpZ3oBSzYAa_OZupQRxIPL0L2Qr5nZ1zISKB04bJV-SOyq4YK9YzukcNwszh2jcSNAjBYm7eUgQgM102dgR4Uj5oWuacrgt3xavP44l8ZFfvqcdw60kAlUHBjRagpK7ntmOkA44alI9Z"/>
+<div class="absolute bottom-2 left-2 bg-primary/80 backdrop-blur-md px-2 py-0.5 rounded text-[11px] font-medium text-on-primary">
+        Live Optical Feed • Healthy Rice Tiller Formation
+      </div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for the manual inflow button
+  const inflowBtn = document.getElementById('manualInflowBtn');
+  if (inflowBtn) {
+    let active = false;
+    inflowBtn.addEventListener('click', () => {
+      active = !active;
+      if (active) {
+        inflowBtn.classList.remove('bg-primary-container');
+        inflowBtn.classList.add('bg-secondary');
+        inflowBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[22px] animate-spin">sync</span>
+          Queueing Inflow (Priority: Standby)...
+        `;
+      } else {
+        inflowBtn.classList.remove('bg-secondary');
+        inflowBtn.classList.add('bg-primary-container');
+        inflowBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[22px] text-secondary-fixed">water_drop</span>
+          Manual Inflow Request
+        `;
+      }
+    });
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_20px_rgba(24,61,43,0.06)]" data-active-classes="text-primary-container font-bold [&amp;&gt;div]:bg-secondary-container/70 [&amp;&gt;div&gt;span]:font-bold [&amp;&gt;span]:text-primary-container"><div class="flex justify-between items-center h-16 px-space-sm max-w-md mx-auto"><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="home" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">eco</span></div><span class="font-label-sm text-label-sm mt-0.5">Home</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="farm" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">grid_view</span></div><span class="font-label-sm text-label-sm mt-0.5">Farm</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="irrigation" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">water_drop</span></div><span class="font-label-sm text-label-sm mt-0.5">Irrigation</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="analytics" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">trending_up</span></div><span class="font-label-sm text-label-sm mt-0.5">Analytics</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="profile" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">manage_accounts</span></div><span class="font-label-sm text-label-sm mt-0.5">Profile</span></a></div></nav></body></html>

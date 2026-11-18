@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:max(env(safe-area-inset-bottom,0px),12px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"secondary-container":"#acf3b9","tertiary":"#331b02","secondary-fixed-dim":"#91d69f","surface-tint":"#416652","on-tertiary":"#ffffff","surface-dim":"#dcdad1","primary-fixed-dim":"#a7d0b7","surface":"#fcf9ef","surface-container":"#f0eee4","surface-container-low":"#f6f4ea","outline-variant":"#c1c8c1","on-tertiary-fixed":"#2c1600","on-tertiary-fixed-variant":"#5e4122","surface-container-highest":"#e4e3d9","tertiary-fixed-dim":"#eabe96","on-primary-fixed":"#002112","on-error-container":"#93000a","background":"#fcf9ef","on-secondary-fixed":"#00210c","surface-variant":"#e4e3d9","tertiary-fixed":"#ffdcbe","on-secondary":"#ffffff","on-error":"#ffffff","error":"#ba1a1a","tertiary-container":"#4b3013","surface-container-high":"#eae8de","surface-bright":"#fcf9ef","primary":"#002717","on-primary":"#ffffff","on-primary-container":"#81a890","on-background":"#1b1c16","secondary-fixed":"#acf3b9","on-surface-variant":"#414843","primary-container":"#183d2b","inverse-primary":"#a7d0b7","on-primary-fixed-variant":"#294e3b","on-secondary-fixed-variant":"#075228","secondary":"#286b3d","surface-container-lowest":"#ffffff","error-container":"#ffdad6","inverse-on-surface":"#f3f1e7","on-tertiary-container":"#bf9872","on-secondary-container":"#2f7143","primary-fixed":"#c3ecd2","on-surface":"#1b1c16","outline":"#727973","inverse-surface":"#30312a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"1.25rem","margin-compact":"1rem","space-lg":"1.25rem","space-xl":"1.75rem","space-2xl":"2.5rem","space-sm":"0.5rem","gutter":"1rem","space-md":"0.75rem","space-xs":"0.25rem","gutter-sm":"0.75rem"},"fontFamily":{"headline-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"metric-xl":["Plus Jakarta Sans"],"metric-xl-mobile":["Plus Jakarta Sans"],"display-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"metric-lg":["Plus Jakarta Sans"]},"fontSize":{"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"700"}],"display-lg":["44px",{"lineHeight":"52px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"500"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"600"}],"metric-xl":["32px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"800"}],"metric-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"800"}],"display-md":["36px",{"lineHeight":"44px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"600"}],"metric-lg":["24px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}}</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface-container-low text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(24,61,43,0.04)] pt-safe"><div class="h-6 px-margin flex items-center justify-between text-on-surface select-none pt-1"><span class="font-label-sm text-label-sm tracking-normal font-semibold">09:41</span><div class="flex items-center gap-1.5 text-on-surface"><span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span><span class="font-label-sm text-label-sm">4G</span><span class="material-symbols-outlined text-[14px]">wifi</span><span class="font-label-sm text-label-sm ml-0.5">88%</span><span class="material-symbols-outlined text-[15px]">battery_charging_80</span></div></div><div class="h-14 px-margin flex items-center justify-between gap-gutter"><div class="flex items-center gap-space-sm"><img alt="AgroSmart 2.0 Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrCrA_Gwq-L21czL_cq5dDso9sTq9Nwcz-r-ngz9CU7psBAqUJhxTDYBnb8AjCci89DGxqH-bRVtNTMWq82TSlNAPr539B90QBQEC5VLHU-AIoNfy4uWlm6s8j9C9Yfx93l0yh2IZ3nGoCWYdXQrAL4z_7vvuN_XqWG6pLsCBQUz_jUk8SfzrUrCam_yRow7qvDDJy66GjgPi9-8S4XLZhEoJ_1bPkjMYK90OSfhvl-NXg"/><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold leading-none">AgroSmart 2.0</span><h1 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-tight truncate">Home</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Telemetry Notifications" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col w-full px-margin pt-20 pb-28 bg-surface-container-low min-h-screen"><div class="flex flex-col w-full gap-space-lg select-none">
+<!-- Plot Header & Diagnostic State -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<a class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors text-primary active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="font-label-md text-label-md">Back to Farm</span>
+</a>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed shadow-sm animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-fixed"></span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Demo Mode: Simulated Data</span>
+</div>
+</div>
+<div class="flex flex-col mt-1">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">Plot A: Vegetable Field</h2>
+<span class="material-symbols-outlined text-secondary text-[20px]" title="Field Online">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Organic Tomatoes &amp; Bell Peppers • Drip Irrigation Line #2</p>
+<!-- Sensor Node Tag Badge -->
+<div class="inline-flex items-center gap-2 mt-2 px-3 py-1.5 rounded-xl bg-surface-container-high text-on-surface-variant self-start shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">memory</span>
+<span class="font-label-sm text-label-sm font-medium">Capacitive V1.2 + PE-03 pH + DS18B20</span>
+</div>
+</div>
+</section>
+<!-- Hero Moisture Gauge & Range Card -->
+<section class="flex flex-col p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Volumetric Water Content</span>
+<span class="font-headline-sm text-headline-sm text-primary">Soil Moisture Status</span>
+</div>
+<!-- Range Time Filters -->
+<div class="flex items-center p-0.5 rounded-full bg-surface-container" id="time-filter-group">
+<button class="px-3 py-1 rounded-full font-label-sm text-label-sm bg-primary text-on-primary transition-all shadow-sm" data-filter="24h">24 Hours</button>
+<button class="px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" data-filter="7d">7 Days</button>
+<button class="px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" data-filter="30d">30 Days</button>
+</div>
+</div>
+<!-- Center Radial Gauge -->
+<div class="flex flex-col items-center justify-center my-3 relative">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<!-- Circular Progress SVG -->
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 160 160">
+<!-- Background Track -->
+<circle class="stroke-surface-container fill-none" cx="80" cy="80" r="66" stroke-linecap="round" stroke-width="13"></circle>
+<!-- Safe Target Zone Arc Reference (35% to 60%) -->
+<circle class="stroke-secondary-fixed fill-none" cx="80" cy="80" r="66" stroke-dasharray="103 414" stroke-dashoffset="-145" stroke-linecap="butt" stroke-width="4"></circle>
+<!-- Value Arc (38% => 0.38 * 414.7 = 157.6) -->
+<circle class="stroke-amber-600 transition-all duration-1000 fill-none" cx="80" cy="80" id="moisture-gauge-arc" r="66" stroke-dasharray="414.7" stroke-dashoffset="257.1" stroke-linecap="round" stroke-width="13"></circle>
+</svg>
+<!-- Centered Metric Label -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-[#559FC1] text-[22px] animate-bounce">water_drop</span>
+<div class="flex items-baseline">
+<span class="font-metric-xl text-metric-xl-mobile text-primary font-extrabold tracking-tight">38</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant font-semibold ml-0.5">%</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Target: 35–60%</span>
+</div>
+</div>
+<!-- Real-time Alert Status Pill -->
+<div class="flex items-center gap-2 mt-2 px-3 py-1.5 rounded-full bg-amber-50 text-amber-800 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-amber-600 animate-ping"></span>
+<span class="font-label-sm text-label-sm font-semibold">Approaching auto-irrigation threshold (35%)</span>
+</div>
+</div>
+<!-- Threshold Progress Reference Bar -->
+<div class="flex flex-col gap-1.5 mt-2 pt-space-sm bg-surface-container-low p-3 rounded-xl">
+<div class="flex justify-between items-center font-label-sm text-label-sm text-on-surface-variant">
+<span>Wilting Floor: <strong class="text-error font-bold">35%</strong></span>
+<span>Current: <strong class="text-primary font-bold">38%</strong></span>
+<span>Saturation: <strong class="text-secondary font-bold">60%</strong></span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high relative overflow-hidden">
+<!-- Floor warning band -->
+<div class="absolute left-0 top-0 bottom-0 w-[35%] bg-error/25"></div>
+<!-- Optimal band -->
+<div class="absolute left-[35%] top-0 bottom-0 w-[25%] bg-secondary-container"></div>
+<!-- Active indicator thumb -->
+<div class="absolute top-0 bottom-0 w-2.5 rounded-full bg-amber-600 shadow" style="left: calc(38% - 5px);"></div>
+</div>
+</div>
+</section>
+<!-- Telemetry Metrics Matrix (4 Bento Cards) -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-primary">Micro-Telemetry Array</h3>
+<span class="font-label-sm text-label-sm text-secondary font-bold tracking-wide uppercase">4 Probes Live</span>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<!-- 1. Soil pH -->
+<div class="flex flex-col p-3.5 rounded-2xl bg-surface-container-lowest shadow-sm gap-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-[20px] text-secondary">science</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">Optimal</span>
+</div>
+<div class="flex flex-col mt-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Soil pH (PE-03)</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-metric-lg text-metric-lg text-primary font-bold">6.5</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">pH</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1.5 bg-surface-container-low p-2 rounded-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Target: 6.0 – 6.8</span>
+<span class="font-label-sm text-label-sm text-secondary leading-none">Calibrated: 4d ago</span>
+</div>
+</div>
+<!-- 2. Soil Temperature -->
+<div class="flex flex-col p-3.5 rounded-2xl bg-surface-container-lowest shadow-sm gap-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-[20px] text-tertiary-container">device_thermostat</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold">15cm Depth</span>
+</div>
+<div class="flex flex-col mt-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Soil Temp (DS18B20)</span>
+<div class="flex items-baseline gap-0.5 mt-0.5">
+<span class="font-metric-lg text-metric-lg text-primary font-bold">26.2</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">°C</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1.5 bg-surface-container-low p-2 rounded-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Root Metabolism</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium leading-none">Nominal (20–28°C)</span>
+</div>
+</div>
+<!-- 3. Air Microclimate -->
+<div class="flex flex-col p-3.5 rounded-2xl bg-surface-container-lowest shadow-sm gap-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-[20px] text-[#559FC1]">cloud</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold">DHT11 Grove</span>
+</div>
+<div class="flex flex-col mt-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Ambient Vapor &amp; RH</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-metric-lg text-metric-lg text-primary font-bold">29°C</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">/ 65%</span>
+</div>
+</div>
+<div class="flex flex-col gap-0.5 pt-1.5 bg-surface-container-low p-2 rounded-lg font-label-sm text-label-sm text-on-surface-variant">
+<span>Dew Point: <strong class="text-primary font-medium">21°C</strong></span>
+<span>VPD: <strong class="text-secondary font-medium">1.4 kPa</strong></span>
+</div>
+</div>
+<!-- 4. Irrigation Queue Status -->
+<div class="flex flex-col p-3.5 rounded-2xl bg-surface-container-lowest shadow-sm gap-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-[20px] text-secondary">alt_route</span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-fixed-dim animate-pulse"></span>
+</div>
+<div class="flex flex-col mt-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Queue Priority</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-label-md text-label-md text-primary font-bold leading-tight">Next on Pump</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1.5 bg-surface-container-low p-2 rounded-lg font-label-sm text-label-sm text-on-surface-variant">
+<span>Shared 12V DC Pump</span>
+<span class="text-primary font-semibold">Est. 17:30 or &lt;35%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 24-Hour Trends Chart (Inline SVG with Threshold Baseline) -->
+<section class="flex flex-col p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Moisture Depletion &amp; Thermal Drift</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">24h Telemetry Trend</h3>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#559FC1]"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Moisture</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Temp</span>
+</div>
+</div>
+</div>
+<!-- Trend Graph Canvas Box -->
+<div class="w-full h-44 relative mt-2">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 320 150">
+<defs>
+<!-- Moisture Gradient Area Fill -->
+<lineargradient id="moistureGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#559FC1" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#559FC1" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#E3E7DC" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="320" y1="20" y2="20"></line>
+<line stroke="#E3E7DC" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="320" y1="65" y2="65"></line>
+<line stroke="#E3E7DC" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="320" y1="110" y2="110"></line>
+<!-- 35% Floor Critical Threshold Dashed Line (y = 118) -->
+<line stroke="#ba1a1a" stroke-dasharray="6 3" stroke-width="1.5" x1="0" x2="320" y1="118" y2="118"></line>
+<text class="text-[9px] font-bold tracking-wider uppercase" fill="#ba1a1a" x="4" y="114">Auto-Irrigation Baseline (35%)</text>
+<!-- Area Fill for Moisture -->
+<polygon fill="url(#moistureGradient)" points="0,150 0,40 80,55 160,70 240,95 320,105 320,150"></polygon>
+<!-- Moisture Trend Line (45% -> 42% -> 39% -> 38%) -->
+<polyline fill="none" points="0,40 80,55 160,70 240,95 320,105" stroke="#559FC1" stroke-linecap="round" stroke-width="2.5"></polyline>
+<!-- Temperature Trend Line (DS18B20: 24°C -> 25.5°C -> 28°C -> 26.2°C) -->
+<polyline fill="none" points="0,110 80,95 160,50 240,40 320,60" stroke="#D97706" stroke-dasharray="3 3" stroke-linecap="round" stroke-width="2"></polyline>
+<!-- Data Plot Points for Moisture -->
+<circle cx="0" cy="40" fill="#FFFEF9" r="3.5" stroke="#559FC1" stroke-width="2"></circle>
+<circle cx="80" cy="55" fill="#FFFEF9" r="3.5" stroke="#559FC1" stroke-width="2"></circle>
+<circle cx="160" cy="70" fill="#FFFEF9" r="3.5" stroke="#559FC1" stroke-width="2"></circle>
+<circle cx="240" cy="95" fill="#FFFEF9" r="3.5" stroke="#559FC1" stroke-width="2"></circle>
+<circle cx="320" cy="105" fill="#D97706" r="4.5" stroke="#FFFEF9" stroke-width="2"></circle>
+</svg>
+</div>
+<!-- Timeline X-Axis Labels -->
+<div class="flex justify-between items-center font-label-sm text-label-sm text-on-surface-variant pt-1">
+<div class="flex flex-col items-center">
+<span>06:00</span>
+<span class="font-bold text-primary">45%</span>
+</div>
+<div class="flex flex-col items-center">
+<span>10:00</span>
+<span class="font-bold text-primary">42%</span>
+</div>
+<div class="flex flex-col items-center">
+<span>14:00</span>
+<span class="font-bold text-primary">39%</span>
+</div>
+<div class="flex flex-col items-center text-amber-800">
+<span>18:00 (Now)</span>
+<span class="font-bold text-amber-700">38%</span>
+</div>
+</div>
+</section>
+<!-- Agronomic Field Log & Crop Vigor -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-primary">Recent Irrigation Activity</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sol-Valve #2</span>
+</div>
+<div class="flex flex-col rounded-2xl bg-surface-container-lowest p-space-sm shadow-sm gap-2">
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">water</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold">Today, 06:15 AM</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">6 min cycle • Shared Pump</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-md text-label-md text-secondary font-bold">~45 L</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Delivered</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold">Yesterday, 05:45 PM</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">8 min cycle • Shared Pump</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-md text-label-md text-on-surface font-semibold">~60 L</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Delivered</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Field Actions / Calibration Control CTAs -->
+<section class="flex flex-col gap-space-sm pt-1 mb-2">
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Secondary Action: Sensor Calibrate -->
+<button class="flex items-center justify-center gap-2 h-12 px-4 rounded-xl bg-surface-container text-primary font-label-md text-label-md font-bold transition-all active:scale-95 hover:bg-surface-container-high shadow-sm" id="btn-calibrate">
+<span class="material-symbols-outlined text-[18px]">build</span>
+<span>Calibrate Sensors</span>
+</button>
+<!-- Primary Field CTA: Manual Flush -->
+<button class="flex items-center justify-center gap-2 h-12 px-4 rounded-xl bg-primary-container text-on-primary font-label-md text-label-md font-bold transition-all active:scale-95 shadow-md hover:bg-primary" id="btn-flush">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">valve</span>
+<span>Request 3-Min Flush</span>
+</button>
+</div>
+<!-- Active Solenoid Safety Note -->
+<div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+<span class="leading-tight">Flush requests queue after Plot C paddy reservoir cycle completes.</span>
+</div>
+</section>
+</div>
+<script>
+  // Simple interactive feedback for time filters & action buttons
+  document.querySelectorAll('#time-filter-group button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#time-filter-group button').forEach(b => {
+        b.className = 'px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all';
+      });
+      btn.className = 'px-3 py-1 rounded-full font-label-sm text-label-sm bg-primary text-on-primary transition-all shadow-sm';
+    });
+  });
+
+  const flushBtn = document.getElementById('btn-flush');
+  if (flushBtn) {
+    flushBtn.addEventListener('click', () => {
+      const originalText = flushBtn.innerHTML;
+      flushBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span><span>Queuing Valve...</span>';
+      setTimeout(() => {
+        flushBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] text-secondary-fixed">check_circle</span><span>Queued for 17:30</span>';
+        setTimeout(() => {
+          flushBtn.innerHTML = originalText;
+        }, 3000);
+      }, 900);
+    });
+  }
+
+  const calBtn = document.getElementById('btn-calibrate');
+  if (calBtn) {
+    calBtn.addEventListener('click', () => {
+      alert('Diagnostic ping sent to Node #4 (PE-03 / DS18B20). Offsets verified.');
+    });
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_20px_rgba(24,61,43,0.06)]" data-active-classes="text-primary-container font-bold [&amp;&gt;div]:bg-secondary-container/70 [&amp;&gt;div&gt;span]:font-bold [&amp;&gt;span]:text-primary-container"><div class="flex justify-between items-center h-16 px-space-sm max-w-md mx-auto"><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="home" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">eco</span></div><span class="font-label-sm text-label-sm mt-0.5">Home</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="farm" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">grid_view</span></div><span class="font-label-sm text-label-sm mt-0.5">Farm</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="irrigation" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">water_drop</span></div><span class="font-label-sm text-label-sm mt-0.5">Irrigation</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="analytics" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">trending_up</span></div><span class="font-label-sm text-label-sm mt-0.5">Analytics</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 text-on-surface-variant transition-colors group" data-path="profile" href="#"><div class="px-4 py-1 rounded-full flex items-center justify-center transition-all"><span class="material-symbols-outlined text-[22px]">manage_accounts</span></div><span class="font-label-sm text-label-sm mt-0.5">Profile</span></a></div></nav></body></html>
