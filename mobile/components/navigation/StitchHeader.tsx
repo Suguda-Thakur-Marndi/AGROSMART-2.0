@@ -18,6 +18,7 @@ interface StitchHeaderProps {
   onBack?: () => void;
   onNotificationPress?: () => void;
   onProfilePress?: () => void;
+  showSystemStatus?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -28,35 +29,38 @@ export const StitchHeader: React.FC<StitchHeaderProps> = ({
   onBack,
   onNotificationPress,
   onProfilePress,
+  showSystemStatus = false,
   style,
 }) => {
   const { unreadCount } = useAppStore();
 
   return (
     <View style={[styles.container, style]}>
-      {/* Android System Status Strip (Simulated Edge-to-Edge) */}
-      <View style={styles.systemStatusRow}>
-        <Text style={styles.clockText}>09:41</Text>
-        <View style={styles.systemIcons}>
-          <MaterialCommunityIcons
-            name="signal-cellular-3"
-            size={13}
-            color={Colors.stitch.onSurface}
-          />
-          <Text style={styles.netTechText}>4G</Text>
-          <MaterialCommunityIcons
-            name="wifi"
-            size={13}
-            color={Colors.stitch.onSurface}
-          />
-          <Text style={styles.batteryText}>88%</Text>
-          <MaterialCommunityIcons
-            name="battery-charging-80"
-            size={15}
-            color={Colors.stitch.onSurface}
-          />
+      {/* Android System Status Strip (Rendered only when explicitly requested) */}
+      {showSystemStatus && (
+        <View style={styles.systemStatusRow}>
+          <Text style={styles.clockText}>09:41</Text>
+          <View style={styles.systemIcons}>
+            <MaterialCommunityIcons
+              name="signal-cellular-3"
+              size={13}
+              color={Colors.stitch.onSurface}
+            />
+            <Text style={styles.netTechText}>4G</Text>
+            <MaterialCommunityIcons
+              name="wifi"
+              size={13}
+              color={Colors.stitch.onSurface}
+            />
+            <Text style={styles.batteryText}>88%</Text>
+            <MaterialCommunityIcons
+              name="battery-charging-80"
+              size={15}
+              color={Colors.stitch.onSurface}
+            />
+          </View>
         </View>
-      </View>
+      )}
 
       {/* Main Top App Bar */}
       <View style={styles.appBarRow}>
@@ -66,10 +70,11 @@ export const StitchHeader: React.FC<StitchHeaderProps> = ({
               activeOpacity={0.7}
               onPress={onBack}
               style={styles.backBtn}
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
             >
               <MaterialCommunityIcons
                 name="arrow-left"
-                size={22}
+                size={24}
                 color={Colors.stitch.primary}
               />
             </TouchableOpacity>
@@ -77,7 +82,7 @@ export const StitchHeader: React.FC<StitchHeaderProps> = ({
             <View style={styles.logoBadge}>
               <MaterialCommunityIcons
                 name="sprout"
-                size={20}
+                size={22}
                 color={Colors.stitch.secondary}
               />
             </View>
@@ -98,10 +103,11 @@ export const StitchHeader: React.FC<StitchHeaderProps> = ({
             activeOpacity={0.7}
             onPress={onNotificationPress}
             style={styles.iconBtn}
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           >
             <MaterialCommunityIcons
               name="bell-outline"
-              size={22}
+              size={24}
               color={Colors.stitch.onSurfaceVariant}
             />
             {unreadCount > 0 && (
@@ -117,10 +123,11 @@ export const StitchHeader: React.FC<StitchHeaderProps> = ({
             activeOpacity={0.7}
             onPress={onProfilePress}
             style={styles.profileBtn}
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           >
             <MaterialCommunityIcons
               name="account"
-              size={18}
+              size={20}
               color={Colors.neutral.white}
             />
           </TouchableOpacity>
@@ -180,18 +187,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: Colors.stitch.surfaceContainer,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: Spacing.spaceSm,
   },
   logoBadge: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: Colors.stitch.secondaryContainer,
     alignItems: 'center',
     justifyContent: 'center',
@@ -245,9 +252,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   profileBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: Colors.stitch.primary,
     alignItems: 'center',
     justifyContent: 'center',

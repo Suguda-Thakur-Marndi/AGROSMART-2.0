@@ -157,19 +157,19 @@ export default function ProfileScreen() {
           <TouchableOpacity
             style={styles.navItemCard}
             activeOpacity={0.85}
-            onPress={() => router.push('/device-connectivity')}
+            onPress={() => router.push('/connection')}
           >
             <View style={styles.navIconWrap}>
-              <MaterialIcons
-                name="cell-tower"
-                size={22}
-                color={Colors.stitch.secondary}
+              <MaterialCommunityIcons
+                name="wifi-sync"
+                size={24}
+                color={Colors.stitch.primary}
               />
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={styles.navTitle}>Device & Cellular Connectivity</Text>
+              <Text style={styles.navTitle}>Device Connection (Wi-Fi & Bluetooth)</Text>
               <Text style={styles.navSubtitle}>
-                A7672S signal strength, MQTT broker link & MCU UART stats
+                Pair via direct Bluetooth or connect through Wi-Fi farm gateway
               </Text>
             </View>
             <MaterialIcons

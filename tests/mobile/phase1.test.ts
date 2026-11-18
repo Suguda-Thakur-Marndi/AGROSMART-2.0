@@ -165,9 +165,9 @@ describe('Phase 1 - Demo Data Integrity & Separation', () => {
 });
 
 describe('Phase 1 - State Management & Zustand Store Initialization', () => {
-  test('appStore initializes with demo mode enabled and empty notifications', () => {
+  test('appStore initializes with LIVE mode enabled (isDemoMode: false) by default', () => {
     const { isDemoMode, unreadCount, notifications } = useAppStore.getState();
-    assert.equal(isDemoMode, true, 'Demo mode should default to true');
+    assert.equal(isDemoMode, false, 'LIVE mode must be the default operational mode');
     assert.equal(unreadCount, 0);
     assert.equal(notifications.length, 0);
   });

@@ -3,6 +3,7 @@
  */
 
 #include "wifi_esp8266.h"
+#include "config/wifi_config.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -105,13 +106,24 @@ bool WifiEsp8266::sendTelemetry(const char* jsonStr) {
   }
 
 #ifdef ARDUINO
-  char cmd[64];
-  uint16_t len = (uint16_t)strlen(jsonStr);
-  // Open TCP connection to backend
-  sendAtCommand("AT+CIPSTART=\"TCP\",\"192.168.1.100\",8000", "OK", 3000);
-  snprintf(cmd, sizeof(cmd), "AT+CIPSEND=%u", len);
+  char cmd[128];
+  char httpPayload[512];
+  uint16_t jsonLen = (uint16_t)strlen(jsonStr);
+  int httpLen = snprintf(httpPayload, sizeof(httpPayload),
+    "POST " BACKEND_TELEMETRY_PATH " HTTP/1.1\r\n"
+    "Host: " BACKEND_HOST ":%d\r\n"
+    "Content-Type: application/json\r\n"
+    "X-Device-Key: " DEVICE_AUTH_TOKEN "\r\n"
+    "Content-Length: %u\r\n"
+    "Connection: close\r\n\r\n"
+    "%s",
+    BACKEND_PORT, jsonLen, jsonStr);
+
+  snprintf(cmd, sizeof(cmd), "AT+CIPSTART=\"TCP\",\"%s\",%d", BACKEND_HOST, BACKEND_PORT);
+  sendAtCommand(cmd, "OK", 3000);
+  snprintf(cmd, sizeof(cmd), "AT+CIPSEND=%d", httpLen);
   if (sendAtCommand(cmd, ">", 2000)) {
-    WIFI_SERIAL.print(jsonStr);
+    WIFI_SERIAL.print(httpPayload);
     return waitForResponse("SEND OK", 3000);
   }
   return false;

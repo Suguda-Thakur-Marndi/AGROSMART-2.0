@@ -83,7 +83,7 @@ export default function AnalyticsHistoricalReportsScreen() {
             <View style={styles.scopeIndicatorLeft}>
               <MaterialIcons
                 name="query-stats"
-                size={18}
+                size={20}
                 color={Colors.stitch.secondary}
               />
               <Text style={styles.scopeIndicatorText}>AGRONOMIC TELEMETRY</Text>

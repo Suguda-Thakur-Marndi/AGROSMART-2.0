@@ -2,6 +2,7 @@ export * from './sensor';
 export * from './irrigation';
 export * from './device';
 export * from './water';
+export * from './connection';
 
 export interface ApiResponse<T> {
   data: T;

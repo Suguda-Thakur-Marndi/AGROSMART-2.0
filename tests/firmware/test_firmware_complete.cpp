@@ -23,6 +23,8 @@
 #include "telemetry/telemetry_builder.h"
 #include "storage/eeprom_storage.h"
 #include "core/scheduler.h"
+#include "drivers/communication/bluetooth/bluetooth_driver.h"
+#include "drivers/communication/connection_coordinator.h"
 
 // ============================================================================
 // TEST FRAMEWORK
@@ -342,6 +344,55 @@ int main() {
 
     sched.run(2001); // t=2001ms: task2 (2000ms) should fire
     ASSERT(g_task2Count >= 1, "Scheduler: task2 fires at t=2001ms (interval=2000ms)");
+  }
+
+  // -------------------------------------------------------------------------
+  // TEST 26: Bluetooth Driver & Protocol
+  // -------------------------------------------------------------------------
+  {
+    BluetoothDriver bt;
+    bt.init(9600);
+    ASSERT(bt.isConnected(), "BluetoothDriver: init() establishes connected state in test");
+
+    bt.enqueue("TEST_TELEMETRY_FRAME");
+    char outBuf[64];
+    bool deq = bt.dequeue(outBuf, sizeof(outBuf));
+    ASSERT(deq && strcmp(outBuf, "TEST_TELEMETRY_FRAME") == 0, "BluetoothDriver: enqueue/dequeue FIFO round-trip");
+
+    bool ackSent = bt.sendAck("cmd_999", "START", true, "ACK_OK");
+    ASSERT(ackSent, "BluetoothDriver: sendAck() returns true when connected");
+  }
+
+  // -------------------------------------------------------------------------
+  // TEST 27: Connection Coordinator & Safety Arbitration
+  // -------------------------------------------------------------------------
+  {
+    WifiEsp8266 wifi;
+    BluetoothDriver bt;
+    IrrigationStateMachine fsm;
+    ConnectionCoordinator coord(wifi, bt, fsm);
+
+    // 1. Wi-Fi claims active controller lock
+    coord.recordHeartbeat(ActiveController::WIFI, 1000);
+    ASSERT(coord.getActiveController() == ActiveController::WIFI, "Coordinator: Wi-Fi active controller lock recorded");
+
+    // 2. Bluetooth command while Wi-Fi is active should be rejected
+    bool btAccepted = coord.processCommand(ActiveController::BLUETOOTH, "{\"cmd_id\":\"c1\",\"action\":\"START\",\"zone\":\"vegetable\"}", 1500);
+    ASSERT(!btAccepted, "Coordinator: Bluetooth command rejected when Wi-Fi controller is active");
+
+    // 3. SAFETY EXCEPTION: EMERGENCY_STOP is ALWAYS accepted regardless of active controller
+    bool emergAccepted = coord.processCommand(ActiveController::BLUETOOTH, "{\"cmd_id\":\"c2\",\"action\":\"EMERGENCY_STOP\"}", 1600);
+    ASSERT(emergAccepted, "Coordinator: EMERGENCY_STOP accepted from Bluetooth even when Wi-Fi locked");
+    ASSERT(fsm.getState() == IrrigationState::EMERGENCY_STOP, "Coordinator: FSM in EMERGENCY_STOP state");
+
+    // 4. Duplicate command rejection
+    fsm.resume();
+    coord.recordHeartbeat(ActiveController::WIFI, 2000);
+    bool cmd1 = coord.processCommand(ActiveController::WIFI, "{\"cmd_id\":\"dup_01\",\"action\":\"START\",\"zone\":\"vegetable\"}", 2100);
+    ASSERT(cmd1, "Coordinator: First command accepted");
+
+    bool cmd2 = coord.processCommand(ActiveController::WIFI, "{\"cmd_id\":\"dup_01\",\"action\":\"START\",\"zone\":\"vegetable\"}", 2200);
+    ASSERT(!cmd2, "Coordinator: Duplicate command with same cmd_id within debounce window rejected");
   }
 
   // ============================================================================

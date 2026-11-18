@@ -40,7 +40,7 @@ export const PumpStatusCard: React.FC<PumpStatusCardProps> = ({
           >
             <MaterialCommunityIcons
               name="fan"
-              size={22}
+              size={24}
               color={isRunning ? Colors.stitch.secondary : Colors.stitch.primary}
             />
           </View>
@@ -112,7 +112,7 @@ export const PumpStatusCard: React.FC<PumpStatusCardProps> = ({
         >
           <MaterialCommunityIcons
             name="power"
-            size={18}
+            size={20}
             color={Colors.neutral.white}
           />
           <Text style={styles.runBtnText}>
@@ -127,7 +127,7 @@ export const PumpStatusCard: React.FC<PumpStatusCardProps> = ({
         >
           <MaterialCommunityIcons
             name="shield-alert-outline"
-            size={18}
+            size={20}
             color={Colors.neutral.white}
           />
           <Text style={styles.stopBtnText}>STOP</Text>

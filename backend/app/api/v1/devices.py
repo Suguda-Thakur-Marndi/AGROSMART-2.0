@@ -52,6 +52,7 @@ async def update_device_status(
 
 
 @router.get("/{device_id}/commands")
+@router.get("/{device_id}/commands/poll")
 async def poll_commands(device_id: str, db: AsyncSession = Depends(get_db)):
     cmds = await get_pending_commands(db, device_id)
     import json

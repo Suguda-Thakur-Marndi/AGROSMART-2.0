@@ -136,7 +136,7 @@ export default function LoginScreen() {
               <Text style={styles.signInBtnText}>Enter Farm Console</Text>
               <MaterialIcons
                 name="arrow-forward"
-                size={18}
+                size={20}
                 color={Colors.neutral.white}
               />
             </TouchableOpacity>

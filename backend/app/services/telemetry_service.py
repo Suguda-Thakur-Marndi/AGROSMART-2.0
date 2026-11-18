@@ -33,22 +33,36 @@ async def ingest_telemetry(db: AsyncSession, device_id: str, packet: TelemetryPa
         if packet.ip_address:
             device.ip_address = packet.ip_address
 
+    # Normalize compact aliases if standard fields were not populated
+    veg_moist = packet.veg_moisture if packet.veg_moisture is not None else packet.vm
+    paddy_moist = packet.paddy_moisture if packet.paddy_moisture is not None else packet.pm
+    ph_val = packet.ph
+    soil_temperature = packet.soil_temp if packet.soil_temp is not None else packet.st
+    air_temperature = packet.air_temp if packet.air_temp is not None else packet.at
+    air_humid = packet.air_humidity if packet.air_humidity is not None else packet.ah
+    pump_act = packet.pump_active or bool(packet.pump)
+    veg_v = packet.veg_valve or bool(packet.vv)
+    paddy_v = packet.paddy_valve or bool(packet.pv)
+    irrig_mode = packet.irrigation_mode or packet.mode
+    act_zone = packet.active_zone or packet.zone
+    err_bits = packet.error_bitmask or (packet.err if packet.err is not None else 0)
+
     # Save sensor reading
     reading = SensorReading(
         device_id=device_id,
         timestamp=datetime.now(timezone.utc),
-        veg_moisture=packet.veg_moisture,
-        paddy_moisture=packet.paddy_moisture,
-        ph=packet.ph,
-        soil_temp=packet.soil_temp,
-        air_temp=packet.air_temp,
-        air_humidity=packet.air_humidity,
-        pump_active=packet.pump_active,
-        veg_valve=packet.veg_valve,
-        paddy_valve=packet.paddy_valve,
-        irrigation_mode=packet.irrigation_mode,
-        active_zone=packet.active_zone,
-        error_bitmask=packet.error_bitmask,
+        veg_moisture=veg_moist,
+        paddy_moisture=paddy_moist,
+        ph=ph_val,
+        soil_temp=soil_temperature,
+        air_temp=air_temperature,
+        air_humidity=air_humid,
+        pump_active=pump_act,
+        veg_valve=veg_v,
+        paddy_valve=paddy_v,
+        irrigation_mode=irrig_mode,
+        active_zone=act_zone,
+        error_bitmask=err_bits,
     )
     db.add(reading)
 

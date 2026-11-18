@@ -86,10 +86,11 @@ export const Header: React.FC<HeaderProps> = ({
           activeOpacity={0.7}
           onPress={onNotificationPress}
           style={styles.iconButton}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
         >
           <MaterialCommunityIcons
             name="bell-outline"
-            size={22}
+            size={24}
             color={Colors.text.primary}
           />
           {unreadCount > 0 && (

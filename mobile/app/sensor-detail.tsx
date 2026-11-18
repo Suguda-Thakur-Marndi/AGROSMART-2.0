@@ -90,12 +90,12 @@ export default function SensorMonitoringCalibrationScreen() {
           </View>
 
           <View style={styles.cellularPill}>
-            <MaterialIcons
-              name="cell-tower"
-              size={14}
+            <MaterialCommunityIcons
+              name="wifi"
+              size={16}
               color={Colors.stitch.secondary}
             />
-            <Text style={styles.cellularText}>A7672S -67 dBm</Text>
+            <Text style={styles.cellularText}>ESP8266 Wi-Fi</Text>
           </View>
         </View>
 

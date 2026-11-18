@@ -23,6 +23,8 @@
 #include "drivers/sensors/ds18b20/ds18b20.h"
 #include "drivers/sensors/dht11/dht11.h"
 #include "drivers/communication/wifi/wifi_esp8266.h"
+#include "drivers/communication/bluetooth/bluetooth_driver.h"
+#include "drivers/communication/connection_coordinator.h"
 #include "irrigation/irrigation_state_machine.h"
 #include "safety/safety_interlock.h"
 #include "telemetry/telemetry_builder.h"
@@ -37,7 +39,9 @@ static PhSensor                 phSensor(PIN_ANALOG_PH_SENSOR);
 static Ds18b20Sensor            ds18b20(PIN_DIGITAL_DS18B20);
 static Dht11Sensor              dht11(PIN_DIGITAL_DHT11);
 static WifiEsp8266              wifi;
+static BluetoothDriver          bluetoothDriver;
 static IrrigationStateMachine   irrigationFSM;
+static ConnectionCoordinator    connectionCoordinator(wifi, bluetoothDriver, irrigationFSM);
 static SafetyInterlock          safetyInterlock;
 static TelemetryBuilder         telemetryBuilder;
 static EepromStorage            eepromStorage;
@@ -89,6 +93,7 @@ static void taskRunFSM() {
 #else
   uint32_t now = 0;
 #endif
+  connectionCoordinator.update(now);
   irrigationFSM.update(now, g_vegMoisture, g_paddyMoisture);
 }
 
@@ -115,21 +120,13 @@ static void taskSendTelemetry() {
     irrigationFSM.isPaddyValveOpen(),
     mode, zone, safetyInterlock.getFaultMask()
   );
+  
+  // Transmit over Wi-Fi
   wifi.sendTelemetry(json);
-
-  // Poll for incoming commands
-  char cmdBuf[256];
-  if (wifi.pollCommand(cmdBuf, sizeof(cmdBuf))) {
-    // Parse command type (simple linear scan – no stdlib JSON)
-    if (strstr(cmdBuf, "\"emergency_stop\"")) {
-      irrigationFSM.emergencyStop();
-    } else if (strstr(cmdBuf, "\"manual_veg\"")) {
-      irrigationFSM.startManual(IrrigationZone::VEGETABLE, 10UL * 60000UL);
-    } else if (strstr(cmdBuf, "\"manual_paddy\"")) {
-      irrigationFSM.startManual(IrrigationZone::PADDY, 20UL * 60000UL);
-    } else if (strstr(cmdBuf, "\"resume\"")) {
-      irrigationFSM.resume();
-    }
+  
+  // Transmit over Bluetooth if paired/connected
+  if (bluetoothDriver.isConnected()) {
+    bluetoothDriver.sendTelemetry(json);
   }
 }
 
@@ -179,6 +176,9 @@ void setup() {
   // Initialize Wi-Fi
   wifi.init();
   wifi.connectAP(DEFAULT_WIFI_SSID, DEFAULT_WIFI_PASS);
+
+  // Initialize Bluetooth (Hardware Serial2 on Pins 16 TX2, 17 RX2)
+  bluetoothDriver.init(9600);
 
   // Schedule tasks
   scheduler.addTask(taskReadSensors,   5000);  // Every 5 seconds

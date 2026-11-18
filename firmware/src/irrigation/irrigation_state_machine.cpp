@@ -49,7 +49,10 @@ void IrrigationStateMachine::setPaddyValve(bool open) {
 }
 
 void IrrigationStateMachine::update(uint32_t nowMs, float vegMoisture, float paddyMoisture) {
-  uint32_t elapsed = nowMs - m_stateStartMs;
+  if (m_stateStartMs == 0 && m_state != IrrigationState::IDLE) {
+    m_stateStartMs = nowMs;
+  }
+  uint32_t elapsed = (nowMs >= m_stateStartMs) ? (nowMs - m_stateStartMs) : 0;
 
   switch (m_state) {
     case IrrigationState::IDLE:

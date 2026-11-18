@@ -41,10 +41,12 @@ class SensorReadingOut(BaseModel):
 
 
 class TelemetryPacket(BaseModel):
-    """JSON packet sent by the Arduino device."""
-    device_id: str
+    """JSON packet sent by the Arduino device over Wi-Fi or Bluetooth."""
+    device_id: str = "agrosmart-mega-01"
     firmware_version: Optional[str] = None
     ip_address: Optional[str] = None
+    
+    # Standard field names
     veg_moisture: Optional[float] = None
     paddy_moisture: Optional[float] = None
     ph: Optional[float] = None
@@ -57,3 +59,17 @@ class TelemetryPacket(BaseModel):
     irrigation_mode: Optional[str] = None
     active_zone: Optional[str] = None
     error_bitmask: int = 0
+
+    # Compact aliases sent directly by firmware TelemetryBuilder
+    ts: Optional[int] = None
+    vm: Optional[float] = None
+    pm: Optional[float] = None
+    st: Optional[float] = None
+    at: Optional[float] = None
+    ah: Optional[float] = None
+    pump: Optional[int] = None
+    vv: Optional[int] = None
+    pv: Optional[int] = None
+    mode: Optional[str] = None
+    zone: Optional[str] = None
+    err: Optional[int] = None

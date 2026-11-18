@@ -58,15 +58,11 @@ export const useSensorStore = create<SensorState>((set, get) => ({
       if (reading) {
         set({ error: null, isDemo: false, lastUpdated: new Date().toISOString() });
       } else {
-        // Keep existing values; mark demo if we have no live data
-        const hasData =
-          get().vegetableZone !== null || get().paddyZone !== null;
-        if (!hasData) {
-          set({ isDemo: true, error: 'Offline — showing demo data' });
-        }
+        // In LIVE mode: do NOT silently fallback to demo data
+        set({ error: 'Hardware offline or no telemetry ingested yet' });
       }
     } catch {
-      set({ isDemo: true, error: 'Offline — showing demo data' });
+      set({ error: 'Cannot connect to hardware or backend API' });
     }
   },
 
@@ -77,20 +73,12 @@ export const useSensorStore = create<SensorState>((set, get) => ({
     _ws = new AgroSmartWebSocket(
       deviceId,
       (data) => {
-        // Telemetry payload may update either zone depending on content
         set({ lastUpdated: new Date().toISOString(), isDemo: false, error: null });
-        // Downstream components can subscribe to lastUpdated or the zone fields
-        // For raw WS data, we emit it via setError cleared flag; actual parsing
-        // is left to callers who hydrate zones from demoService or API shape.
         void data;
       },
       (connected) => {
         if (!connected) {
-          const hasData =
-            get().vegetableZone !== null || get().paddyZone !== null;
-          if (!hasData) {
-            set({ isDemo: true });
-          }
+          set({ error: 'WebSocket disconnected from live telemetry feed' });
         }
       },
     );

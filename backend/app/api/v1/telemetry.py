@@ -19,6 +19,7 @@ def verify_device_key(x_device_key: Optional[str] = Header(default=None)):
 
 
 @router.post("", response_model=SensorReadingOut, status_code=status.HTTP_201_CREATED)
+@router.post("/ingest", response_model=SensorReadingOut, status_code=status.HTTP_201_CREATED)
 async def post_telemetry(
     packet: TelemetryPacket,
     db: AsyncSession = Depends(get_db),

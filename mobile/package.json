@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "npx tsx --test ../tests/mobile/phase1.test.ts ../tests/mobile/phase2_ui_ux.test.ts"
+    "test": "npx tsx --test ../tests/mobile/phase1.test.ts ../tests/mobile/phase2_ui_ux.test.ts ../tests/mobile/connection.test.ts ../tests/mobile/navigation_icons.test.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",

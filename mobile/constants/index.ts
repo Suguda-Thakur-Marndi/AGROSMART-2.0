@@ -20,8 +20,8 @@ export const WS_BASE_URL = isDev
 
 export const MQTT_BROKER_URL = 'mqtt://localhost:1883';
 
-// Demo mode flag
-export const DEMO_MODE_DEFAULT = true;
+// Demo mode flag (Default: FALSE for Live Hardware Mode)
+export const DEMO_MODE_DEFAULT = false;
 
 // Sensor limits for validation
 export const SENSOR_LIMITS = {

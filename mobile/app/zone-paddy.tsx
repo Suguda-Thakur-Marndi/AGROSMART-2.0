@@ -112,7 +112,7 @@ export default function PaddyFieldMonitoringScreen() {
             >
               <MaterialIcons
                 name="arrow-back"
-                size={16}
+                size={18}
                 color={Colors.stitch.primary}
               />
               <Text style={styles.backPillText}>Back to Farm</Text>

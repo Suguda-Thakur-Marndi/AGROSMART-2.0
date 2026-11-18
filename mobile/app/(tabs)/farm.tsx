@@ -117,8 +117,8 @@ export default function FarmOverviewScreen() {
           </View>
 
           <View style={styles.cellularPill}>
-            <MaterialIcons name="cell-tower" size={13} color={Colors.stitch.secondary} />
-            <Text style={styles.cellularText}>A7672S 4G</Text>
+            <MaterialCommunityIcons name="wifi" size={15} color={Colors.stitch.secondary} />
+            <Text style={styles.cellularText}>ESP8266 / BT</Text>
           </View>
         </View>
 
@@ -326,7 +326,7 @@ export default function FarmOverviewScreen() {
                 <Text style={styles.primaryActionText}>Field Monitoring</Text>
                 <MaterialIcons
                   name="arrow-forward"
-                  size={16}
+                  size={18}
                   color={Colors.neutral.white}
                 />
               </TouchableOpacity>
@@ -522,7 +522,7 @@ export default function FarmOverviewScreen() {
                 <Text style={styles.primaryActionText}>Field Monitoring</Text>
                 <MaterialIcons
                   name="arrow-forward"
-                  size={16}
+                  size={18}
                   color={Colors.neutral.white}
                 />
               </TouchableOpacity>

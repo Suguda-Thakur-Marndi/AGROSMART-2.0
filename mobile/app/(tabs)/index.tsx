@@ -22,21 +22,23 @@ import {
 import { useAppStore } from '../../store/appStore';
 import { useIrrigationStore } from '../../store/irrigationStore';
 import { useSensorStore } from '../../store/sensorStore';
+import { useConnectionStore } from '../../store/connectionStore';
 
 export default function HomeScreen() {
   const router = useRouter();
   const { isDemoMode } = useAppStore();
   const { pumpStatus, setPumpStatus } = useIrrigationStore();
   const { vegetableZone, paddyZone } = useSensorStore();
+  const { statusInfo, connectionState, connectionType } = useConnectionStore();
 
   const isPumpRunning = pumpStatus?.state === 'ON';
-  const vegMoisture = vegetableZone?.soilMoisture?.value ?? 38;
-  const paddyMoisture = paddyZone?.soilMoisture?.value ?? 72;
-  const vegPH = vegetableZone?.ph?.value ?? 6.5;
-  const paddyPH = paddyZone?.ph?.value ?? 6.8;
-  const soilTemp = vegetableZone?.soilTemperature?.value ?? 26.2;
-  const airTemp = vegetableZone?.airTemperature?.value ?? 29.0;
-  const airHumidity = vegetableZone?.airHumidity?.value ?? 65;
+  const vegMoisture = vegetableZone?.soilMoisture?.value ?? (isDemoMode ? 38 : null);
+  const paddyMoisture = paddyZone?.soilMoisture?.value ?? (isDemoMode ? 72 : null);
+  const vegPH = vegetableZone?.ph?.value ?? (isDemoMode ? 6.5 : null);
+  const paddyPH = paddyZone?.ph?.value ?? (isDemoMode ? 6.8 : null);
+  const soilTemp = vegetableZone?.soilTemperature?.value ?? (isDemoMode ? 26.2 : null);
+  const airTemp = vegetableZone?.airTemperature?.value ?? (isDemoMode ? 29.0 : null);
+  const airHumidity = vegetableZone?.airHumidity?.value ?? (isDemoMode ? 65 : null);
 
   const handleQuickRun = () => {
     Alert.alert(
@@ -117,10 +119,59 @@ export default function HomeScreen() {
         <HeroStatusCard
           farmerName="Farmer"
           isDemoMode={isDemoMode}
-          temperature={Math.round(airTemp)}
+          temperature={airTemp !== null ? Math.round(airTemp) : (isDemoMode ? 29 : null)}
           weatherCondition="Clear"
           lastSyncedText="Synced 2m ago"
+          connectionLabel={statusInfo.label}
+          onConnectionPress={() => router.push('/connection')}
         />
+
+        {/* Connection Shortcut & Live State Banner */}
+        <TouchableOpacity
+          style={[
+            styles.dashboardConnBanner,
+            connectionState === 'CONNECTED'
+              ? connectionType === 'wifi'
+                ? styles.dashboardConnWifi
+                : styles.dashboardConnBt
+              : styles.dashboardConnOffline,
+          ]}
+          onPress={() => router.push('/connection')}
+          activeOpacity={0.8}
+        >
+          <MaterialCommunityIcons
+            name={
+              connectionState === 'CONNECTED'
+                ? connectionType === 'wifi'
+                  ? 'wifi'
+                  : 'bluetooth'
+                : 'link-variant-off'
+            }
+            size={22}
+            color={
+              connectionState === 'CONNECTED'
+                ? connectionType === 'wifi'
+                  ? Colors.stitch.primary
+                  : '#0066CC'
+                : Colors.stitch.outline
+            }
+          />
+          <View style={{ flex: 1, marginLeft: Spacing.sm }}>
+            <Text style={styles.dashboardConnTitle}>
+              {statusInfo.label}
+            </Text>
+            <Text style={styles.dashboardConnSubtitle}>
+              {connectionState === 'CONNECTED'
+                ? `Node: ${statusInfo.connectedDeviceName || 'AgroSmart Mega'} • Tap to manage`
+                : 'Tap to connect controller via Wi-Fi or Bluetooth'}
+            </Text>
+          </View>
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={22}
+            color={Colors.stitch.outline}
+          />
+        </TouchableOpacity>
 
         {/* 2. Live Soil & Air Telemetry Section */}
         <View style={styles.sectionHeaderRow}>
@@ -168,7 +219,7 @@ export default function HomeScreen() {
                       strokeWidth={3.5}
                     />
                   </Svg>
-                  <Text style={styles.miniGaugeNumber}>{vegMoisture}%</Text>
+                  <Text style={styles.miniGaugeNumber}>{vegMoisture !== null ? `${Math.round(vegMoisture)}%` : '--'}</Text>
                 </View>
                 <Text style={styles.miniGaugeLabel}>Veg Plot</Text>
               </View>
@@ -192,7 +243,7 @@ export default function HomeScreen() {
                       strokeWidth={3.5}
                     />
                   </Svg>
-                  <Text style={styles.miniGaugeNumber}>{paddyMoisture}%</Text>
+                  <Text style={styles.miniGaugeNumber}>{paddyMoisture !== null ? `${Math.round(paddyMoisture)}%` : '--'}</Text>
                 </View>
                 <Text style={styles.miniGaugeLabel}>Paddy</Text>
               </View>
@@ -200,7 +251,7 @@ export default function HomeScreen() {
 
             <View style={styles.bentoFooterPill}>
               <Text style={styles.bentoFooterPillText}>
-                Capacitive Sensing Active
+                {vegMoisture !== null ? 'Capacitive Sensing Active' : 'Awaiting Sensor Telemetry...'}
               </Text>
             </View>
           </StitchCard>
@@ -218,13 +269,13 @@ export default function HomeScreen() {
 
             <View style={styles.bentoMidCol}>
               <View style={styles.phValueRow}>
-                <Text style={styles.bentoHeroNumber}>{vegPH.toFixed(1)}</Text>
+                <Text style={styles.bentoHeroNumber}>{vegPH !== null ? vegPH.toFixed(1) : '--'}</Text>
                 <View style={styles.phBadge}>
-                  <Text style={styles.phBadgeText}>Veg: Ideal</Text>
+                  <Text style={styles.phBadgeText}>{vegPH !== null ? 'Veg: Ideal' : 'No Signal'}</Text>
                 </View>
               </View>
               <View style={styles.phSubRow}>
-                <Text style={styles.phSubNumber}>{paddyPH.toFixed(1)}</Text>
+                <Text style={styles.phSubNumber}>{paddyPH !== null ? paddyPH.toFixed(1) : '--'}</Text>
                 <Text style={styles.phSubText}>Paddy field</Text>
               </View>
             </View>
@@ -247,7 +298,7 @@ export default function HomeScreen() {
 
             <View style={styles.bentoMidCol}>
               <View style={styles.tempRow}>
-                <Text style={styles.bentoHeroNumber}>{soilTemp.toFixed(1)}</Text>
+                <Text style={styles.bentoHeroNumber}>{soilTemp !== null ? soilTemp.toFixed(1) : '--'}</Text>
                 <Text style={styles.unitSuffix}>°C</Text>
               </View>
               <Text style={styles.bentoSubDetail}>
@@ -257,7 +308,7 @@ export default function HomeScreen() {
 
             <View style={styles.bentoFooterPill}>
               <Text style={styles.bentoFooterPillText}>
-                Optimal Root Range
+                {soilTemp !== null ? 'Optimal Root Range' : 'No Temp Sensor'}
               </Text>
             </View>
           </StitchCard>
@@ -275,8 +326,8 @@ export default function HomeScreen() {
 
             <View style={styles.bentoMidCol}>
               <View style={styles.tempRow}>
-                <Text style={styles.bentoHeroNumber}>{Math.round(airTemp)}°</Text>
-                <Text style={styles.unitSuffix}>/ {airHumidity}%</Text>
+                <Text style={styles.bentoHeroNumber}>{airTemp !== null ? `${Math.round(airTemp)}°` : '--'}</Text>
+                <Text style={styles.unitSuffix}>{airHumidity !== null ? `/ ${Math.round(airHumidity)}%` : ''}</Text>
               </View>
               <Text style={styles.bentoSubDetail}>
                 DHT11 Grove Canopy Module
@@ -285,7 +336,7 @@ export default function HomeScreen() {
 
             <View style={styles.bentoFooterPill}>
               <Text style={styles.bentoFooterPillMuted}>
-                Dew Point: 21°C
+                {airTemp !== null ? 'Dew Point: 21°C' : 'Canopy Sensor Offline'}
               </Text>
             </View>
           </StitchCard>
@@ -296,7 +347,7 @@ export default function HomeScreen() {
           isRunning={isPumpRunning}
           mode={pumpStatus?.mode === 'MANUAL' ? 'Manual' : 'Automatic'}
           nextQueue="Vegetable Plot"
-          runtimeToday={`${Math.floor((pumpStatus?.dailyRuntimeSeconds ?? 1080) / 60)} mins`}
+          runtimeToday={`${Math.floor((pumpStatus?.dailyRuntimeSeconds ?? 0) / 60)} mins`}
           onRunPress={handleQuickRun}
           onEmergencyStopPress={handleEmergencyStop}
         />
@@ -351,10 +402,10 @@ export default function HomeScreen() {
 
           <View style={styles.cropMetricsRow}>
             <Text style={styles.cropMetricText}>
-              Moisture: <Text style={styles.boldText}>{vegMoisture}%</Text> (Floor: 35%)
+              Moisture: <Text style={styles.boldText}>{vegMoisture !== null ? `${vegMoisture}%` : '--'}</Text> (Floor: 35%)
             </Text>
             <Text style={styles.cropMetricText}>
-              pH: <Text style={styles.boldText}>{vegPH.toFixed(1)}</Text>
+              pH: <Text style={styles.boldText}>{vegPH !== null ? vegPH.toFixed(1) : '--'}</Text>
             </Text>
             <Text style={styles.cropMetricText}>
               Auto-Run: <Text style={styles.secondaryBoldText}>17:30</Text>
@@ -365,7 +416,7 @@ export default function HomeScreen() {
             <View
               style={[
                 styles.sectorBarFill,
-                { width: `${vegMoisture}%`, backgroundColor: Colors.stitch.secondaryFixedDim },
+                { width: `${vegMoisture ?? 0}%`, backgroundColor: Colors.stitch.secondaryFixedDim },
               ]}
             />
           </View>
@@ -397,13 +448,13 @@ export default function HomeScreen() {
 
           <View style={styles.cropMetricsRow}>
             <Text style={styles.cropMetricText}>
-              Moisture: <Text style={styles.boldText}>{paddyMoisture}%</Text>
+              Moisture: <Text style={styles.boldText}>{paddyMoisture !== null ? `${paddyMoisture}%` : '--'}</Text>
             </Text>
             <Text style={styles.cropMetricText}>
               Water Layer: <Text style={styles.secondaryBoldText}>Adequate (4cm)</Text>
             </Text>
             <Text style={styles.cropMetricText}>
-              pH: <Text style={styles.boldText}>{paddyPH.toFixed(1)}</Text>
+              pH: <Text style={styles.boldText}>{paddyPH !== null ? paddyPH.toFixed(1) : '--'}</Text>
             </Text>
           </View>
 
@@ -411,7 +462,7 @@ export default function HomeScreen() {
             <View
               style={[
                 styles.sectorBarFill,
-                { width: `${paddyMoisture}%`, backgroundColor: Colors.stitch.secondary },
+                { width: `${paddyMoisture ?? 0}%`, backgroundColor: Colors.stitch.secondary },
               ]}
             />
           </View>
@@ -434,7 +485,13 @@ export default function HomeScreen() {
               </Text>
             </View>
             <View style={styles.waterRight}>
-              <Text style={styles.waterVolume}>~240 L</Text>
+              <Text style={styles.waterVolume}>
+                {isDemoMode
+                  ? '~240 L'
+                  : pumpStatus?.dailyRuntimeSeconds
+                  ? `~${Math.round((pumpStatus.dailyRuntimeSeconds * 2.5) / 60)} L`
+                  : '0 L (Est.)'}
+              </Text>
               <Text style={styles.waterTag}>Today Total</Text>
             </View>
           </View>
@@ -445,14 +502,26 @@ export default function HomeScreen() {
               <View style={[styles.splitDot, { backgroundColor: Colors.stitch.secondaryFixedDim }]} />
               <View>
                 <Text style={styles.splitLabel}>Vegetables</Text>
-                <Text style={styles.splitVal}>90 Liters</Text>
+                <Text style={styles.splitVal}>
+                  {isDemoMode
+                    ? '90 Liters'
+                    : pumpStatus?.dailyRuntimeSeconds
+                    ? `~${Math.round((pumpStatus.dailyRuntimeSeconds * 1.0) / 60)} L`
+                    : '0 L'}
+                </Text>
               </View>
             </View>
             <View style={styles.splitCol}>
               <View style={[styles.splitDot, { backgroundColor: Colors.stitch.secondary }]} />
               <View>
                 <Text style={styles.splitLabel}>Paddy Field</Text>
-                <Text style={styles.splitVal}>150 Liters</Text>
+                <Text style={styles.splitVal}>
+                  {isDemoMode
+                    ? '150 Liters'
+                    : pumpStatus?.dailyRuntimeSeconds
+                    ? `~${Math.round((pumpStatus.dailyRuntimeSeconds * 1.5) / 60)} L`
+                    : '0 L'}
+                </Text>
               </View>
             </View>
           </View>
@@ -810,5 +879,36 @@ const styles = StyleSheet.create({
     ...Typography.labelMd,
     color: Colors.stitch.primary,
     fontWeight: '700',
+  },
+  dashboardConnBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: Spacing.md,
+    borderRadius: BorderRadius.lg,
+    marginVertical: Spacing.sm,
+    borderWidth: 1,
+  },
+  dashboardConnWifi: {
+    backgroundColor: Colors.stitch.primaryContainer,
+    borderColor: Colors.stitch.primary,
+  },
+  dashboardConnBt: {
+    backgroundColor: '#E3EDF7',
+    borderColor: '#0066CC',
+  },
+  dashboardConnOffline: {
+    backgroundColor: Colors.stitch.surfaceContainerHigh,
+    borderColor: Colors.stitch.outlineVariant,
+  },
+  dashboardConnTitle: {
+    ...Typography.titleSmall,
+    fontWeight: '700',
+    color: Colors.stitch.onSurface,
+  },
+  dashboardConnSubtitle: {
+    ...Typography.bodySmall,
+    color: Colors.stitch.onSurfaceVariant,
+    fontSize: 11,
+    marginTop: 2,
   },
 });

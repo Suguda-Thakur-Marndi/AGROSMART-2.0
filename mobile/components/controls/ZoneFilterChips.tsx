@@ -40,7 +40,7 @@ export const ZoneFilterChips: React.FC<ZoneFilterChipsProps> = ({
       >
         <MaterialCommunityIcons
           name="layers"
-          size={16}
+          size={18}
           color={selected === 'all' ? Colors.neutral.white : Colors.stitch.outline}
         />
         <Text

@@ -55,7 +55,7 @@ export const ZoneOverviewCard: React.FC<ZoneOverviewCardProps> = ({
           >
             <MaterialCommunityIcons
               name={isPaddy ? 'waves' : 'sprout'}
-              size={20}
+              size={22}
               color={primaryZoneColor}
             />
           </View>
@@ -98,7 +98,7 @@ export const ZoneOverviewCard: React.FC<ZoneOverviewCardProps> = ({
           <View style={styles.moistureTitleGroup}>
             <MaterialCommunityIcons
               name="water-percent"
-              size={18}
+              size={20}
               color={primaryZoneColor}
             />
             <Text style={styles.moistureTitle}>
@@ -146,7 +146,7 @@ export const ZoneOverviewCard: React.FC<ZoneOverviewCardProps> = ({
         <View style={styles.metricItem}>
           <MaterialCommunityIcons
             name="flask-outline"
-            size={16}
+            size={18}
             color={Colors.stitch.tertiaryContainer}
           />
           <Text style={styles.metricItemLabel}>Soil pH</Text>
@@ -157,7 +157,7 @@ export const ZoneOverviewCard: React.FC<ZoneOverviewCardProps> = ({
         <View style={styles.metricItem}>
           <MaterialCommunityIcons
             name="thermometer"
-            size={16}
+            size={18}
             color={Colors.stitch.primary}
           />
           <Text style={styles.metricItemLabel}>Soil Temp</Text>
@@ -168,7 +168,7 @@ export const ZoneOverviewCard: React.FC<ZoneOverviewCardProps> = ({
         <View style={styles.metricItem}>
           <MaterialCommunityIcons
             name="cloud-outline"
-            size={16}
+            size={18}
             color={Colors.stitch.secondary}
           />
           <Text style={styles.metricItemLabel}>Canopy RH</Text>
@@ -187,7 +187,7 @@ export const ZoneOverviewCard: React.FC<ZoneOverviewCardProps> = ({
           <Text style={styles.detailsBtnText}>View Zone Diagnostics</Text>
           <MaterialCommunityIcons
             name="chevron-right"
-            size={18}
+            size={20}
             color={Colors.stitch.secondary}
           />
         </TouchableOpacity>

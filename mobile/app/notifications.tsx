@@ -179,7 +179,7 @@ export default function NotificationsScreen() {
                   ) : item.category === 'advisory' ? (
                     <Feather
                       name="wind"
-                      size={18}
+                      size={20}
                       color={Colors.stitch.water}
                     />
                   ) : (
@@ -217,7 +217,7 @@ export default function NotificationsScreen() {
         >
           <MaterialCommunityIcons
             name="check-all"
-            size={18}
+            size={20}
             color={Colors.stitch.primary}
           />
           <Text style={styles.markReadBtnText}>Mark All as Read</Text>

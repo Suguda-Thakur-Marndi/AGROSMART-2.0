@@ -208,7 +208,7 @@ export default function SmartIrrigationWaterControlScreen() {
                 <View style={styles.valveIconWrap}>
                   <MaterialCommunityIcons
                     name="sprout"
-                    size={18}
+                    size={20}
                     color={Colors.stitch.primary}
                   />
                 </View>
@@ -291,7 +291,7 @@ export default function SmartIrrigationWaterControlScreen() {
               >
                 <MaterialIcons
                   name="play-arrow"
-                  size={18}
+                  size={20}
                   color={Colors.neutral.white}
                 />
                 <Text style={styles.requestDripText}>
@@ -380,7 +380,7 @@ export default function SmartIrrigationWaterControlScreen() {
               >
                 <MaterialIcons
                   name="play-arrow"
-                  size={18}
+                  size={20}
                   color={Colors.neutral.white}
                 />
                 <Text style={styles.requestDripText}>

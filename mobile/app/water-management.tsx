@@ -237,7 +237,7 @@ export default function WaterManagementScreen() {
           >
             <MaterialIcons
               name="tune"
-              size={18}
+              size={20}
               color={Colors.stitch.primary}
             />
             <Text style={styles.calibrateFlowText}>Calibrate Flow Rate</Text>
@@ -250,7 +250,7 @@ export default function WaterManagementScreen() {
           >
             <MaterialCommunityIcons
               name="file-delimited-outline"
-              size={18}
+              size={20}
               color={Colors.neutral.white}
             />
             <Text style={styles.exportBtnText}>Export CSV Log</Text>

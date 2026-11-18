@@ -26,7 +26,7 @@ const char* TelemetryBuilder::build(
   uint8_t     errorMask)
 {
   snprintf(m_buffer, BUFFER_SIZE,
-    "{\"ts\":%lu,\"vm\":%.1f,\"pm\":%.1f,\"ph\":%.2f,"
+    "{\"device_id\":\"agrosmart-mega-01\",\"ts\":%lu,\"vm\":%.1f,\"pm\":%.1f,\"ph\":%.2f,"
     "\"st\":%.1f,\"at\":%.1f,\"ah\":%.1f,"
     "\"pump\":%d,\"vv\":%d,\"pv\":%d,"
     "\"mode\":\"%s\",\"zone\":\"%s\",\"err\":%d}",

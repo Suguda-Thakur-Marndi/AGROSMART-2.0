@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle, StyleProp } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, StyleProp, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors, Spacing, Typography, BorderRadius } from '../../constants';
@@ -7,9 +7,11 @@ import { Colors, Spacing, Typography, BorderRadius } from '../../constants';
 interface HeroStatusCardProps {
   farmerName?: string;
   isDemoMode?: boolean;
-  temperature?: number;
+  temperature?: number | null;
   weatherCondition?: string;
   lastSyncedText?: string;
+  connectionLabel?: string;
+  onConnectionPress?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -19,6 +21,8 @@ export const HeroStatusCard: React.FC<HeroStatusCardProps> = ({
   temperature = 29,
   weatherCondition = 'Clear',
   lastSyncedText = 'Synced 2m ago',
+  connectionLabel,
+  onConnectionPress,
   style,
 }) => {
   return (
@@ -30,13 +34,19 @@ export const HeroStatusCard: React.FC<HeroStatusCardProps> = ({
     >
       {/* Top Status & Sync Indicator */}
       <View style={styles.topRow}>
-        <View style={styles.hardwareBadge}>
+        <TouchableOpacity
+          style={styles.hardwareBadge}
+          onPress={onConnectionPress}
+          activeOpacity={0.8}
+        >
           <View style={styles.pulseDotWrapper}>
             <View style={styles.pulseRing} />
             <View style={styles.pulseCore} />
           </View>
-          <Text style={styles.hardwareText}>EWS Arduino Mega • 4G Cellular</Text>
-        </View>
+          <Text style={styles.hardwareText}>
+            {connectionLabel || 'EWS Mega • Wi-Fi / Bluetooth'}
+          </Text>
+        </TouchableOpacity>
 
         <View style={styles.syncBadge}>
           <Text style={styles.syncText}>{lastSyncedText}</Text>
@@ -49,7 +59,7 @@ export const HeroStatusCard: React.FC<HeroStatusCardProps> = ({
           <View style={styles.demoLeft}>
             <MaterialCommunityIcons
               name="flask"
-              size={14}
+              size={16}
               color={Colors.stitch.onTertiaryFixed}
             />
             <Text style={styles.demoText}>DEMO MODE: SIMULATED DATA ACTIVE</Text>
@@ -68,10 +78,12 @@ export const HeroStatusCard: React.FC<HeroStatusCardProps> = ({
         <View style={styles.weatherBadge}>
           <MaterialCommunityIcons
             name="weather-sunny"
-            size={18}
+            size={20}
             color={Colors.stitch.secondary}
           />
-          <Text style={styles.weatherTemp}>{temperature}°C</Text>
+          <Text style={styles.weatherTemp}>
+            {temperature != null ? `${temperature}°C` : '--°C'}
+          </Text>
           <Text style={styles.weatherCond}>{weatherCondition}</Text>
         </View>
       </View>
